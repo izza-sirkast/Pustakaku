@@ -2,6 +2,6 @@
 <% if (locals.error) { %>
     <p><%= error %></p>
 <% } %>
-<form action="/books/new" method="POST" enctype="multipart/form-data">
+<form action="/books/new" method="POST">
     <%- include('_bookForm') %>
 </form>
