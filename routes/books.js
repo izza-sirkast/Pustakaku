@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 const {bookModel, coverImageBasePath} = require('../models/book');
 const authorModel = require('../models/author');
 
@@ -31,8 +32,28 @@ async function renderFormNewBook(res, bookModel, error = false){
 }
 
 // Books listing page
-router.get('/', (req, res) => {
-    res.render('books/index');
+router.get('/', async (req, res) => {
+    let query = bookModel.find();
+    const searchParams = {};
+    if (req.query.title != null && req.query.title != ''){
+        searchParams.title = req.query.title;
+        query = query.regex('title', new RegExp(req.query.title, 'i'));
+    }
+    if (req.query.publishedAfter != null && req.query.publishedAfter != ''){
+        searchParams.publishedAfter = req.query.publishedAfter;
+        query = query.gte('publishDate', req.query.publishedAfter);
+    }
+    if (req.query.publishedBefore != null  && req.query.publishedBefore != ''){
+        searchParams.publishedBefore = req.query.publishedBefore;
+        query = query.lte('publishDate', req.query.publishedBefore);
+    }
+
+    try{
+        const books = await query.exec();
+        res.render('books/index', {books, searchParams});
+    }catch{
+        res.redirect('/')
+    }
 })
 
 // Create new book page
@@ -56,6 +77,9 @@ router.post('/new', upload.single('coverImage') , async (req, res) => {
         const newBook = await book.save()
         res.redirect('/books')
     }catch(err){
+        fs.unlink(path.join('public', coverImageBasePath, fileName), (err) => {
+            if (err) { console.log(err) };
+        })
         renderFormNewBook(res, book, true);
     }
 })

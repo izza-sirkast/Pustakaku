@@ -1,6 +1,8 @@
 const express = require('express');
 const ejsLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
+
+// Routes
 const indexRoute = require('./routes/index');
 const authorsRoute = require('./routes/authors');
 const booksRotue = require('./routes/books')
@@ -13,9 +15,9 @@ if (process.env.NODE_ENV !== 'production') {
 
 // View engine setup
 app.set('view engine', 'ejs');
-app.set(express.static('public'));
 app.set('views', __dirname+'/views');
 app.set('layout', 'layouts/main-layout');
+app.use(express.static('public'))
 app.use(ejsLayouts);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
