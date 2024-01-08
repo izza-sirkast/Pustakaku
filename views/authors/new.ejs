@@ -1,0 +1,10 @@
+<h1>Add New Author</h1>
+<% if (locals.errorMsg) { %>
+    <p><%= errorMsg %></p>
+<% } %>
+<form action="/authors/new" method="post">
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" value="<%= author.name %>"></input>
+    <a href="/authors">Cancel</a>
+    <button type="submit">Submit</button>
+</form>

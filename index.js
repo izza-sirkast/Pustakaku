@@ -1,7 +1,9 @@
 const express = require('express');
 const ejsLayouts = require('express-ejs-layouts');
-const indexRoute = require('./routes/index');
 const mongoose = require('mongoose');
+const indexRoute = require('./routes/index');
+const authorsRoute = require('./routes/authors');
+const booksRotue = require('./routes/books')
 
 const app = express();
 
@@ -15,6 +17,8 @@ app.set(express.static('public'));
 app.set('views', __dirname+'/views');
 app.set('layout', 'layouts/main-layout');
 app.use(ejsLayouts);
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Database setup
 mongoose.connect(process.env.DATABASE_URL);
@@ -22,6 +26,8 @@ const db = mongoose.connection;
 db.on('error', err => console.log(err));
 db.once('open', () => console.log('Connected to MongoDB...'));
 
-app.get('/', indexRoute);
+app.use('/', indexRoute);
+app.use('/authors', authorsRoute);
+app.use('/books', booksRotue);
 
 app.listen(process.env.PORT || 3000);
