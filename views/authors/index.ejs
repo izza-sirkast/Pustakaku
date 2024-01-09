@@ -5,7 +5,16 @@
     <button type="submit">Search</button>
 </form>
 <% authors.forEach(author => { %>
-    <div>
-        <span><%= author.name %></span>
+    <div style="display: flex; align-items: center; ">
+        <h3 style="margin-right: 50px;"><%= author.name %></h3>
+        <ul style="display: flex; width: 150px; justify-content: space-between;">
+            <li><a href="/authors/<%= author._id %>">View</a></li>
+            <li><a href="/authors/<%= author._id %>/edit">Edit</a></li>
+            <li>
+                <form action="/authors/<%= author._id %>?_method=DELETE" method="post">
+                    <button type="submit" onclick="return confirm('Are you sure want to delete author ?')">Delete</button>
+                </form>
+            </li>
+        </ul>
     </div>
 <% }) %>

@@ -63,7 +63,7 @@ router.get('/new', async (req, res) => {
 
 // Process creating new book
 router.post('/new', /*upload.single('coverImage') , */ async (req, res) => {
-    const fileName = req.file != null ? req.file.filename : null;
+    //const fileName = req.file != null ? req.file.filename : null;
     const { title, author, publishDate, pageCount, description, coverImage } = req.body;
     const book = new bookModel({
         title,
