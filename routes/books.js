@@ -50,7 +50,11 @@ router.get('/', async (req, res) => {
 
     try{
         const books = await query.exec();
-        res.render('books/index', {books, searchParams});
+        res.render('books/index', {
+            books, 
+            searchParams,
+            successMessage : req.flash('deleteSuccess')
+        });
     }catch{
         res.redirect('/')
     }
@@ -84,6 +88,46 @@ router.post('/new', /*upload.single('coverImage') , */ async (req, res) => {
         renderFormNewBook(res, book, true);
     }
 })
+
+// Routing to edit book form
+router.get('/:id/edit', async (req, res) => {
+    try{
+        const book = await bookModel.findById(req.params.id)
+        const authors = await authorModel.find()
+        res.render('books/edit', {
+            book,
+            authors
+        })
+    }catch{
+        red.redirect('/books/'+req.params.id)
+    }
+})
+
+// See book data
+router.get('/:id', async (req, res) => {
+    try{
+        const book = await bookModel.findById(req.params.id).populate('author').exec()
+        res.render('books/book', {
+            book,
+            deleteError : req.flash('deleteError')
+        })
+    }catch{
+        res.redirect('/books')
+    }
+})
+
+// Delete book process
+router.delete('/:id', async (req, res) => {
+    try {
+        const deletedBook = await bookModel.findOneAndDelete({_id : req.params.id})
+        req.flash('deleteSuccess', 'Book is deleted successfully')
+        res.redirect('/books')
+    } catch  {
+        req.flash('deleteError', 'Error : failed to delete the book')
+        res.redirect('/books/'+req.params.id)
+    }
+})
+
 
 const saveCoverImage = (book, coverImage) => {
     if(coverImage == null) throw new Error;

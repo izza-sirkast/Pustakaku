@@ -15,6 +15,14 @@
     <a href="books">Cancel</a>
     <button type="submit">Search</button>
 </form>
+
+<br>
+<% if (successMessage.length != 0) { %>
+    <p style="color: green;"><%= successMessage[0] %></p>
+<% } %>
+
 <% books.forEach(book => { %>
-    <img src="<%= book.coverImageRender %>" width="100" height="150">
+    <a href="/books/<%= book._id %>">
+        <img src="<%= book.coverImageRender %>" width="100" height="150">
+    </a>
 <% }) %>

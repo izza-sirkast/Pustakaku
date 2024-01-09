@@ -20,7 +20,7 @@
 
 <br>
 <label for="pageCount">Number of pages</label>
-<input type="number" name="pageCount" id="pageCount" min="1"></input>
+<input type="number" name="pageCount" id="pageCount" min="1" value="<%= book.pageCount %>"></input>
 
 <br>
 <label for="coverImage">Cover Image</label>
@@ -31,5 +31,5 @@
 <textarea name="description" id="description"><%= book.description %></textarea>
 
 <br>
-<a href="/books">Cancel</a>
+<a href="/books/<%= book._id %>">Cancel</a>
 <button type="submit">Submit</button>

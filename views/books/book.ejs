@@ -1,0 +1,14 @@
+<% if (deleteError.length != 0) { %>
+    <p style="color: red;"><%= deleteError[0] %></p>
+<% } %>
+
+<h2><%= book.title %></h2>
+<img src="<%= book.coverImageRender %>" height="200px"></img>
+<a href="/authors/<%= book.author._id %>"><p>Author : <%= book.author.name %></p></a>
+<p>Description : <%= book.description %></p>
+<p>Page count : <%= book.pageCount %></p>
+<p>Publish date : <%= book.publishDate.toDateString() %></p>
+<a href="/books/<%= book._id %>/edit">Edit</a>
+<form action="/books/<%= book._id %>?_method=DELETE" method="POST">
+    <button type="submit" onclick="return confirm('Are you sure want delete this book ?')">Delete</button>
+</form>
