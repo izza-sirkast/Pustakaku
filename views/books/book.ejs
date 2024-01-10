@@ -1,6 +1,9 @@
 <% if (deleteError.length != 0) { %>
     <p style="color: red;"><%= deleteError[0] %></p>
 <% } %>
+<% if (updateStatusMessage.length != 0) { %>
+    <p><%= updateStatusMessage[0] %></p>
+<% } %>
 
 <h2><%= book.title %></h2>
 <img src="<%= book.coverImageRender %>" height="200px"></img>

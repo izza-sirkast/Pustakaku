@@ -1,4 +1,6 @@
 <h1>Recently added books</h1>
 <% books.forEach(book => { %>
-    <img src="<%= book.coverImageRender %>" height="150" width="100">
+    <a href="/books/<%= book._id %>">
+        <img src="<%= book.coverImageRender %>" height="150" width="100">
+    </a>
 <% }) %>

@@ -109,10 +109,33 @@ router.get('/:id', async (req, res) => {
         const book = await bookModel.findById(req.params.id).populate('author').exec()
         res.render('books/book', {
             book,
-            deleteError : req.flash('deleteError')
+            deleteError : req.flash('deleteError'),
+            updateStatusMessage : req.flash('updateStatusMessage')
         })
     }catch{
         res.redirect('/books')
+    }
+})
+
+// Edit book process
+router.put('/:id', async (req, res) => {
+    try {
+        const {title, author, publishDate, pageCount, coverImage, description} = req.body
+        const book = await bookModel.findById(req.params.id)
+        book.title = title
+        book.author = author
+        book.publishDate = new Date(publishDate),
+        book.pageCount = pageCount
+        book.description = description
+        if (coverImage != ''){
+            saveCoverImage(book, coverImage) 
+        }
+        await book.save()
+        req.flash('updateStatusMessage', 'Book is updated successfully')
+        res.redirect('/books/'+req.params.id)
+    }catch {
+        req.flash('updateStatusMessage', 'Error : failed to update book')
+        res.redirect('/books/'+req.params.id)
     }
 })
 
