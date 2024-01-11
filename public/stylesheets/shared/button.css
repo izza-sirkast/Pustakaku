@@ -1,0 +1,33 @@
+.btn {
+    border: 1px black solid;
+    padding: 2px 5px;
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+    font-family:'Times New Roman', Times, serif;
+    background: white;
+    transition:  .2s;
+}
+
+.btn-success{
+    background: rgb(133, 199, 34);
+}
+
+.btn-danger{
+    background: rgb(242, 71, 71);
+}
+
+.btn:hover{
+    background: gray;
+    cursor: pointer;
+}
+
+.btn-success:hover{
+    background: rgb(98, 147, 24);
+    cursor: pointer;
+}
+
+.btn-danger:hover{
+    background: rgb(205, 45, 45);
+    cursor: pointer;
+}

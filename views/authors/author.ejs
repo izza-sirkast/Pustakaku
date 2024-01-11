@@ -1,8 +1,8 @@
-<a href="/authors">Back to all authors</a>
+<a href="/authors" style="font-size: 14px; color: black;">Back to all authors</a>
 <% if (error.length > 0) { %>
     <p style="color: red;"><%= error[0] %></p>
 <% } %>
-<div style="display: flex; align-items: center; ">
+<div class="author-item">
     <h3 style="margin-right: 50px;"><%= author.name %></h3>
     <ul style="display: flex; width: 100px; justify-content: space-between;">
         <li><a href="/authors/<%= author._id %>/edit">Edit</a></li>
@@ -14,8 +14,10 @@
     </ul>
 </div>
 <h3><%= author.name %>'s books listing</h3>
-<% books.forEach(book => { %>
-    <a href="/books/<%= book._id %>">
-        <img src="<%= book.coverImageRender %>" width="100" height="150">
-    </a>
-<% }) %>
+<div class="books-listing">
+    <% books.forEach(book => { %>
+        <a href="/books/<%= book._id %>">
+            <img src="<%= book.coverImageRender %>" width="100" height="150">
+        </a>
+    <% }) %>
+</div>
