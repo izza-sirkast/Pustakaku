@@ -9,6 +9,7 @@ const flash = require('connect-flash')
 const indexRoute = require('./routes/index');
 const authorsRoute = require('./routes/authors');
 const booksRotue = require('./routes/books')
+const authenticationRoute = require('./routes/authentication')
 
 const app = express();
 
@@ -40,6 +41,10 @@ db.on('error', err => console.log(err));
 db.once('open', () => console.log('Connected to MongoDB...'));
 
 app.use('/', indexRoute);
+<<<<<<< HEAD
+=======
+app.use('/', authenticationRoute)
+>>>>>>> origin/master
 app.use('/authors', authorsRoute);
 app.use('/books', booksRotue);
 
