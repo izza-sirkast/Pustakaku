@@ -1,0 +1,25 @@
+<form action="/authors" method="get">
+    <h2>Search Author</h2>
+    <div class="input-item">
+        <label for="name">Name : </label>
+        <input type="text" name="name" id="name" value="<%= searchName %>"></input>
+    </div>
+    <div class="input-item">
+        <a href="/authors" class="btn">Cancel</a>
+        <button type="submit" class="btn btn-success">Search</button>
+    </div>
+</form>
+<% authors.forEach(author => { %>
+    <div class="author-item">
+        <h3 style="margin-right: 50px;"><%= author.name %></h3>
+        <ul style="display: flex; width: 150px; justify-content: space-between;">
+            <li><a href="/authors/<%= author._id %>" class="btn">View</a></li>
+            <li><a href="/authors/<%= author._id %>/edit" class="btn">Edit</a></li>
+            <li>
+                <form action="/authors/<%= author._id %>?_method=DELETE" method="post">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure want to delete author ?')">Delete</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+<% }) %>

@@ -1,0 +1,41 @@
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px black solid;
+    position: fixed;
+    width: 100vw;
+    top: 0;
+    background: white;
+    z-index: 1000;
+}
+
+.navbar h1{
+    color: black;
+    padding: 0 20px;
+}
+
+.navbar a{
+    text-decoration: none;
+}
+
+.navbar ul{
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+}
+
+.navbar li{
+    margin-right: 15px;
+    list-style: none;
+}
+
+.navbar li a{
+    text-decoration: none;
+    color: black;
+    transition: .2s;
+}
+
+.navbar li a:hover{
+    color:gray
+}

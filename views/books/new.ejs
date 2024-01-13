@@ -1,0 +1,7 @@
+<h1>Create new book</h1>
+<% if (locals.error) { %>
+    <p><%= error %></p>
+<% } %>
+<form action="/books/new" method="POST">
+    <%- include('_bookForm') %>
+</form>

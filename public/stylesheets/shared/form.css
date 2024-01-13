@@ -1,0 +1,21 @@
+.form-title{
+    margin-bottom: 10px;
+}
+
+.input-item{
+    margin-bottom: 10px;
+}
+
+.input-item textarea{
+
+}
+
+.input-item .textarea-label{
+    position: relative;
+    top: -25px;
+}
+
+.coverimg-input{
+    width: 200px;
+    margin-bottom: 30px;
+}
