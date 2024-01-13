@@ -41,10 +41,7 @@ db.on('error', err => console.log(err));
 db.once('open', () => console.log('Connected to MongoDB...'));
 
 app.use('/', indexRoute);
-<<<<<<< HEAD
-=======
 app.use('/', authenticationRoute)
->>>>>>> origin/master
 app.use('/authors', authorsRoute);
 app.use('/books', booksRotue);
 
