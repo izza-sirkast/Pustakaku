@@ -4,6 +4,7 @@ const express = require('express');
 // const fs = require('fs');
 const bookModel = require('../models/book');
 const authorModel = require('../models/author');
+const {checkAuthenticated} = require('../utils/authentication/passport-authentication')
 
 const router = express.Router();
 
@@ -32,7 +33,7 @@ async function renderFormNewBook(res, bookModel, error = false){
 }
 
 // Books listing page
-router.get('/', async (req, res) => {
+router.get('/', checkAuthenticated, async (req, res) => {
     let query = bookModel.find();
     const searchParams = {};
     if (req.query.title != null && req.query.title != ''){

@@ -3,6 +3,7 @@ const router = express.Router();
 const bookModel = require('../models/book');
 
 router.get('/', async (req, res) => {
+    console.log(req)
     try {
         const books = await bookModel.find().sort({creationDate:'desc'}).limit(10).exec();
         res.render('index', {books})

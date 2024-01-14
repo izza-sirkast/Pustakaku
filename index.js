@@ -4,18 +4,18 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override')
 const session = require('express-session')
 const flash = require('connect-flash')
+const passport = require('passport')
+const MongoStore = require('connect-mongo')
 
-// Routes
-const indexRoute = require('./routes/index');
-const authorsRoute = require('./routes/authors');
-const booksRotue = require('./routes/books')
-const authenticationRoute = require('./routes/authentication')
+// Local libraries
+const {passportSetup} = require('./utils/authentication/passport-authentication')
 
 const app = express();
 
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
+
 
 // View engine setup
 app.set('view engine', 'ejs');
@@ -30,9 +30,24 @@ app.use(session({
     secret: 'theonepieceisreal123',
     resave: false,
     saveUninitialized: true,
-    cookie: {maxAge : 1000 * 60}
+    store: MongoStore.create({
+        mongoUrl: process.env.DATABASE_URL,
+        dbName: 'pustakaku'
+    })
 }))
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(passport.authenticate('session'))
 app.use(flash())
+
+// Initialize passport setup
+passportSetup(passport)
+
+// Routes
+const indexRoute = require('./routes/index');
+const authorsRoute = require('./routes/authors');
+const booksRotue = require('./routes/books')
+const authenticationRoute = require('./routes/authentication')
 
 // Database setup
 mongoose.connect(process.env.DATABASE_URL);
@@ -40,9 +55,9 @@ const db = mongoose.connection;
 db.on('error', err => console.log(err));
 db.once('open', () => console.log('Connected to MongoDB...'));
 
-app.use('/', indexRoute);
-app.use('/', authenticationRoute)
+app.use('/auth', authenticationRoute)
 app.use('/authors', authorsRoute);
 app.use('/books', booksRotue);
+app.use('/', indexRoute);
 
 app.listen(process.env.PORT || 3000);
