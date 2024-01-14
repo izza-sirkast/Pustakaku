@@ -13,7 +13,8 @@ router.get('/login', checkNotAuthenticated, (req, res) => {
 
 router.post('/login', passport.authenticate('local', {
     successRedirect : '/',
-    failureRedirect : '/auth/login'
+    failureRedirect : '/auth/login',
+    failureFlash : true
 }))
 
 router.get('/register', checkNotAuthenticated, (req, res) => {
@@ -34,6 +35,13 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
         console.log(err)
         res.redirect('/login')
     }
+})
+
+router.delete('/logout', (req, res) => {
+    req.logout(function(err) {
+        if(err) {return next(err)}
+        res.redirect('/auth/login')
+    })
 })
 
 module.exports = router

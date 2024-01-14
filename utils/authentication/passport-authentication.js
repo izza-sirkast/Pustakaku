@@ -4,15 +4,12 @@ const bcrypt = require('bcrypt')
 
 function passportSetup(passport){
     async function authenticateUser(email, password, done){
-        console.log('masuk')
         try{
             const user = await userModel.findOne
             ({email : email})
-            console.log('user')
             if (user == null) {
                 return done(null, false, {message : 'Email or password incorrect'})
             }else if(await bcrypt.compare(password, user.password)){
-                console.log('Login success')
                 return done(null, user)
             }else{
                 return done(null, false, {message : 'Email or password incorrect'})
@@ -40,17 +37,17 @@ function passportSetup(passport){
 }
 
 function checkAuthenticated(req,res,next){
-    console.log(req.isAuthenticated)
     if(req.isAuthenticated()){
         return next()
     }else{
+        console.log('User is not authenticated')
         res.redirect('/auth/login')
     }
 }
 
 function checkNotAuthenticated(req,res,next){
-    console.log(req.isAuthenticated())
     if(req.isAuthenticated()){
+        console.log('User is allready authenticated')
         res.redirect('/')
     }
     return next()

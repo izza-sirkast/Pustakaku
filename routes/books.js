@@ -33,7 +33,7 @@ async function renderFormNewBook(res, bookModel, error = false){
 }
 
 // Books listing page
-router.get('/', checkAuthenticated, async (req, res) => {
+router.get('/', async (req, res) => {
     let query = bookModel.find();
     const searchParams = {};
     if (req.query.title != null && req.query.title != ''){
@@ -67,7 +67,7 @@ router.get('/new', async (req, res) => {
 })
 
 // Process creating new book
-router.post('/new', /*upload.single('coverImage') , */ async (req, res) => {
+router.post('/new',  /*upload.single('coverImage') , */ async (req, res) => {
     //const fileName = req.file != null ? req.file.filename : null;
     const { title, author, publishDate, pageCount, description, coverImage } = req.body;
     const book = new bookModel({
@@ -119,7 +119,7 @@ router.get('/:id', async (req, res) => {
 })
 
 // Edit book process
-router.put('/:id', async (req, res) => {
+router.put('/:id',  async (req, res) => {
     try {
         const {title, author, publishDate, pageCount, coverImage, description} = req.body
         const book = await bookModel.findById(req.params.id)
