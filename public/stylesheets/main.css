@@ -1,6 +1,7 @@
 @import 'shared/navbar.css';
 @import 'shared/button.css';
 @import 'shared/form.css';
+@import 'shared/auth.css';
 
 :root{
     box-sizing: border-box;
@@ -9,7 +10,6 @@
 body{
     margin: 0px;
     padding: 0px;
-    height: 300vh;
 }
 
 .main-container{

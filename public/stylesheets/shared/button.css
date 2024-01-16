@@ -7,6 +7,7 @@
     font-family:'Times New Roman', Times, serif;
     background: white;
     transition:  .2s;
+    margin-right: 8px;
 }
 
 .btn-success{
@@ -30,4 +31,8 @@
 .btn-danger:hover{
     background: rgb(205, 45, 45);
     cursor: pointer;
+}
+
+.btn-layout{
+    display: flex;
 }

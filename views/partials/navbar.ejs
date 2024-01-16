@@ -1,13 +1,18 @@
 <nav class="navbar">
     <a href="/"><h1>Pustakaku</h1></a>
-    <ul>
+    <ul class="hamburger">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </ul>
+    <ul class="navbar-links">
         <li><a href="/books">Books</a></li>
         <li><a href="/books/new">New Book</a></li>
         <li><a href="/authors">Authors</a></li>
         <li><a href="/authors/new">Add Author</a></li>
         <li>
             <form action="/auth/logout?_method=DELETE" method="POST">
-                <button type="submit" onclick="return confirm('Are you sure want to log out?')">Logout</button>
+                <button type="submit" onclick="return confirm('Are you sure want to log out?')" class="btn">Logout</button>
             </form>
         </li>
     </ul>

@@ -1,18 +1,23 @@
 <h1>Login</h1>
 <% if (messages.error) { %>
-    <p><%= messages.error %></p>
+    <p style="color: red;"><%= messages.error %></p>
 <% } %>
 <form action="/auth/login" method="post">
-    <label for="email">Email : </label>
-    <br>
-    <input type="email" name="email" id="email" required>
+    <div class="input-item">
+        <label for="email">Email : </label>
+        <br>
+        <input type="email" name="email" id="email" required>
+    </div>
+
+    <div class="input-item">
+        <label for="password">Password :</label>
+        <br>
+        <input type="password" name="password" id="password" required>
+    </div>
 
     <br>
-    <label for="password">Password :</label>
-    <br>
-    <input type="password" name="password" id="password" required>
-
-    <br>
-    <a href="/auth/register">Create an account</a>
-    <button type="submit">Login</button>
+    <div class="input-item">
+        <a href="/auth/register" class="btn">Create an account</a>
+        <button type="submit" class="btn btn-success">Login</button>
+    </div>
 </form>
