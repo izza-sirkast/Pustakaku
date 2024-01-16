@@ -102,7 +102,7 @@
         color: black;
     }
     .navbar-links.active{
-        height: 200px;
+        height: 250px;
         opacity: 100%;
     }
 }

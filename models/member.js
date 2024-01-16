@@ -19,7 +19,7 @@ const memberSchema = new mongoose.Schema({
         required: true,
         enum: ['bronze', 'silver', 'gold']
     }
-})
+}) 
 
 const memberModel = mongoose.model('Member', memberSchema)
 

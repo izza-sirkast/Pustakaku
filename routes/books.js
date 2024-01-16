@@ -1,7 +1,4 @@
 const express = require('express');
-// const multer = require('multer');
-// const path = require('path');
-// const fs = require('fs');
 const bookModel = require('../models/book');
 const authorModel = require('../models/author');
 const {checkAuthenticated} = require('../utils/authentication/passport-authentication')
@@ -9,14 +6,6 @@ const {checkAuthenticated} = require('../utils/authentication/passport-authentic
 const router = express.Router();
 
 const coverMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
-// Cover image destination storage and filename route setup, using multer save in folder
-// const coverImageDest = path.join('public', coverImageBasePath);
-// const upload = multer({
-//     dest:  coverImageDest,
-//     fileFilter: (req, file, callback) => {
-//         callback(null, coverMimeTypes.includes(file.mimetype));
-//     }
-// })
 
 // To render book form
 async function renderFormNewBook(res, bookModel, error = false){
@@ -67,8 +56,7 @@ router.get('/new', async (req, res) => {
 })
 
 // Process creating new book
-router.post('/new',  /*upload.single('coverImage') , */ async (req, res) => {
-    //const fileName = req.file != null ? req.file.filename : null;
+router.post('/new', async (req, res) => {
     const { title, author, publishDate, pageCount, description, coverImage } = req.body;
     const book = new bookModel({
         title,
@@ -82,10 +70,6 @@ router.post('/new',  /*upload.single('coverImage') , */ async (req, res) => {
         const newBook = await book.save()
         res.redirect('/books')
     }catch{
-        // Directly delete file image when there's an error
-        // fs.unlink(path.join('public', coverImageBasePath, fileName), (err) => {
-        //     if (err) { console.log(err) };
-        // })
         renderFormNewBook(res, book, true);
     }
 })
