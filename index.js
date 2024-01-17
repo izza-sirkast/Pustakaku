@@ -3,7 +3,6 @@ const ejsLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override')
 const session = require('express-session')
-// const flash = require('connect-flash')
 const flash = require('express-flash')
 const passport = require('passport')
 const MongoStore = require('connect-mongo')
@@ -45,9 +44,9 @@ app.use(flash())
 passportSetup(passport)
 
 // Routes
-const indexRoute = require('./routes/index');
-const authorsRoute = require('./routes/authors');
-const booksRotue = require('./routes/books')
+const indexRoute = require('./routes/user/index');
+const authorsRoute = require('./routes/user/authors');
+const booksRotue = require('./routes/user/books')
 const authenticationRoute = require('./routes/authentication')
 
 // Database setup
@@ -57,8 +56,11 @@ db.on('error', err => console.log(err));
 db.once('open', () => console.log('Connected to MongoDB...'));
 
 app.use('/auth', authenticationRoute)
-app.use('/authors', checkAuthenticated, authorsRoute);
-app.use('/books', checkAuthenticated, booksRotue);
-app.use('/', checkAuthenticated, indexRoute);
+app.use('/user/authors', checkAuthenticated, authorsRoute);
+app.use('/user/books', checkAuthenticated, booksRotue);
+app.use('/user', checkAuthenticated, indexRoute);
+app.get('/', checkAuthenticated, (req, res) => {
+    res.redirect('/user')
+})
 
 app.listen(process.env.PORT || 3000);

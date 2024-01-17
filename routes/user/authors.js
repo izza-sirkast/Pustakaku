@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const authorModel = require('../models/author');
-const bookModel = require('../models/book');
+const authorModel = require('../../models/author');
+const bookModel = require('../../models/book');
 
 router.get('/', async (req, res) => {
     const searchParams = {}
@@ -12,15 +12,15 @@ router.get('/', async (req, res) => {
     }
     try{
         const authors = await authorModel.find(searchParams);
-        res.render('authors/index', {authors, searchName: req.query.name});
+        res.render('user/authors/index', {authors, searchName: req.query.name});
     }catch(error) {
-        res.redirect('/');
+        res.redirect('/user');
     }
 })
 
 // New route form page
 router.get('/new', (req, res) => {
-    res.render('authors/new', {
+    res.render('user/authors/new', {
         author : new authorModel()
     });
 })
@@ -32,9 +32,9 @@ router.post('/new', async (req, res) => {
     });
     try{
         const newAuthor = await author.save();
-        res.redirect('/authors');
+        res.redirect('/user/authors');
     }catch(err){
-        res.render('authors/new', {
+        res.render('user/authors/new', {
             author,
             errorMsg : 'There was an error saving the author.'
         });
@@ -45,9 +45,9 @@ router.post('/new', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
     try{
         const author = await authorModel.findById(req.params.id)
-        res.render('authors/edit', {author})
+        res.render('user/authors/edit', {author})
     }catch{
-        res.redirect(`/authors/${req.params.id}`)
+        res.redirect(`/user/authors/${req.params.id}`)
     }
 })
 
@@ -56,13 +56,13 @@ router.get('/:id', async (req, res) => {
     try{
         const author = await authorModel.findById(req.params.id);
         const books = await bookModel.find({author:req.params.id});
-        res.render('authors/author', {
+        res.render('user/authors/author', {
             author, 
             books, 
             error:req.flash('error')
         })
     } catch {
-        res.redirect('/authors')
+        res.redirect('/user/authors')
     }
 })
 
@@ -72,10 +72,10 @@ router.put('/:id', async (req, res) => {
         if(req.body.name == null && req.body.name == '') throw new Error('Name need to have atleast one character')
         const author = await authorModel.findOneAndUpdate({_id : req.params.id}, {name : req.body.name}, {new : true})
         console.log(author)
-        res.redirect('/authors/'+req.params.id)
+        res.redirect('/user/authors/'+req.params.id)
     }catch(err){
         console.log(err)
-        res.redirect('/authors/'+req.params.id)
+        res.redirect('/user/authors/'+req.params.id)
     }
 })
 
@@ -88,10 +88,10 @@ router.delete('/:id', async (req, res) => {
         }else{
             throw new Error('Cannot delete author that still has their book listed on books data')
         }
-        res.redirect('/authors')
+        res.redirect('/user/authors')
     }catch(err){
         req.flash('error' , err.message)
-        res.redirect('/authors/'+req.params.id)
+        res.redirect('/user/authors/'+req.params.id)
     }
 })
 

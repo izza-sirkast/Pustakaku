@@ -12,7 +12,7 @@ router.get('/login', checkNotAuthenticated, (req, res) => {
 })
 
 router.post('/login', passport.authenticate('local', {
-    successRedirect : '/',
+    successRedirect : '/user',
     failureRedirect : '/auth/login',
     failureFlash : true
 }))
@@ -30,10 +30,10 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
             password : encryptedPass
         })
         await user.save()
-        res.redirect('/')
+        res.redirect('/auth/login')
     }catch(err){
         console.log(err)
-        res.redirect('/login')
+        res.redirect('/auth/login')
     }
 })
 

@@ -48,7 +48,7 @@ function checkAuthenticated(req,res,next){
 function checkNotAuthenticated(req,res,next){
     if(req.isAuthenticated()){
         console.log('User is allready authenticated')
-        res.redirect('/')
+        res.redirect('/user')
     }
     return next()
 }

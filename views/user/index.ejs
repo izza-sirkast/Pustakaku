@@ -3,38 +3,38 @@
     <h3>Total books           : 102</h3>
     <h3>Total books available : 83</h3>
     <h3>Total members         : 24</h3>
-    <a class="btn" href="/">See detailed analytics</a>
+    <a class="btn" href="/user">See detailed analytics</a>
 </div>
 
 <br>
 <div class="library-menu">
     <h2>Main Menu</h2>
     <div class="menu-item">
-        <a href="/books" class="btn">See all books</a>
+        <a href="/user/books" class="btn">See all books</a>
     </div>
     <br>
     <div class="menu-item">
-        <a href="/books" class="btn">See book analytics</a>
+        <a href="/user/books" class="btn">See book analytics</a>
     </div>
     <br>
     <div class="menu-item">
-        <a href="/books/new" class="btn">Add new book</a>
+        <a href="/user/books/new" class="btn">Add new book</a>
     </div>
     <br>
     <div class="menu-item">
-        <a href="/" class="btn">See books lending</a>
+        <a href="/user" class="btn">See books lending</a>
     </div>
     <br>
     <div class="menu-item">
-        <a href="/" class="btn">See transaction history</a>
+        <a href="/user" class="btn">See transaction history</a>
     </div>
     <br>
     <div class="menu-item">
-        <a href="/authors/" class="btn">See all authors</a>
+        <a href="/user/authors/" class="btn">See all authors</a>
     </div>
     <br>
     <div class="menu-item">
-        <a href="/authors/new" class="btn">Add new author</a>
+        <a href="/user/authors/new" class="btn">Add new author</a>
     </div>
 </div>
 
@@ -44,7 +44,7 @@
     <h2>Recently added books</h2>
     <div class="books-listing">
         <% books.forEach(book => { %>
-            <a href="/books/<%= book._id %>">
+            <a href="/user/books/<%= book._id %>">
                 <img src="<%= book.coverImageRender %>" height="150" width="100">
             </a>
         <% }) %>
