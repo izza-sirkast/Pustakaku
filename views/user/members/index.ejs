@@ -1,0 +1,22 @@
+<h1>Members Listing</h1>
+<% if (messages.success) { %>
+    <p><%= messages.success %></p>
+<% } %>
+<% members.forEach(member => { %>
+    <div class="member-item" style="display: flex; align-items: center;">
+        <h3><%= member.name %></h3>
+        <ul style="display: flex; list-style: none; align-items: center;">
+            <li>
+                <a href="/user/members/<%= member._id %>" class="btn">View</a>
+            </li>
+            <li>
+                <a href="/user/members/edit/<%= member._id %>" class="btn">Edit</a>
+            </li>
+            <li>
+                <form action="/user/members/delete/<%= member._id %>?_method=DELETE" method="post">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+<% }) %>

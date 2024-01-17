@@ -1,12 +1,18 @@
 const LocalStrategy = require('passport-local').Strategy
-const userModel = require('../../models/user')
 const bcrypt = require('bcrypt')
+const userModel = require('../../models/user')
+const memberModel = require('../../models/member')
 
 function passportSetup(passport){
-    async function authenticateUser(email, password, done){
+    async function authenticateUser(req, email, password, done){
+        const loginAs = req.body.loginAs
         try{
-            const user = await userModel.findOne
-            ({email : email})
+            let user;
+            if (loginAs == 'staff') {
+                user = await userModel.findOne({email : email})
+            }else if(loginAs == 'member'){
+                user = await memberModel.findOne({email : email})
+            }
             if (user == null) {
                 return done(null, false, {message : 'Email or password incorrect'})
             }else if(await bcrypt.compare(password, user.password)){
@@ -23,17 +29,18 @@ function passportSetup(passport){
     
     passport.serializeUser(function(user, done) {
         process.nextTick(function() {
-            done(null, {id : user._id, username: user.username})
+            done(null, user._id)
         })
     })
     
-    passport.deserializeUser(function(user, done) {
+    passport.deserializeUser(async function(id, done) {
+        const user = await userModel.findById(id) 
         process.nextTick(function() {
             return done(null, user)
         })
     })
 
-    passport.use(new LocalStrategy({usernameField : 'email'}, authenticateUser))
+    passport.use(new LocalStrategy({usernameField : 'email', passReqToCallback : true}, authenticateUser))
 }
 
 function checkAuthenticated(req,res,next){

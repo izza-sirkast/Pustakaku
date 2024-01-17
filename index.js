@@ -48,6 +48,7 @@ const indexRoute = require('./routes/user/index');
 const authorsRoute = require('./routes/user/authors');
 const booksRotue = require('./routes/user/books')
 const authenticationRoute = require('./routes/authentication')
+const membersRoute = require('./routes/user/members')
 
 // Database setup
 mongoose.connect(process.env.DATABASE_URL);
@@ -58,6 +59,7 @@ db.once('open', () => console.log('Connected to MongoDB...'));
 app.use('/auth', authenticationRoute)
 app.use('/user/authors', checkAuthenticated, authorsRoute);
 app.use('/user/books', checkAuthenticated, booksRotue);
+app.use('/user/members', checkAuthenticated, membersRoute)
 app.use('/user', checkAuthenticated, indexRoute);
 app.get('/', checkAuthenticated, (req, res) => {
     res.redirect('/user')
