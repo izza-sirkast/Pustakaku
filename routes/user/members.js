@@ -4,8 +4,13 @@ const memberModel = require('../../models/member')
 const bcrypt = require('bcrypt')
 
 router.get('/', async (req, res) => {
+    const searchParams = {}
+    if(req.query.name && req.query.name !== ''){
+        const name = new RegExp(req.query.name, 'i')
+        searchParams.name = name
+    }    
     try{
-        const members = await memberModel.find()
+        const members = await memberModel.find(searchParams)
         res.render('user/members/index', {members})
     }catch(err){
         console.log(err)
@@ -36,8 +41,25 @@ router.post('/add', async (req, res) => {
 
 })
 
-router.get('/edit/:id', (req, res) => {
-    res.render('user/members/edit')
+router.get('/edit/:id', async (req, res) => {
+    try{
+        const member = await memberModel.findById(req.params.id)
+        res.render('user/members/edit', {member})
+    }catch(err){
+        console.log(err)
+        res.redirect('/user/members/'+req.params.id)
+    }
+})
+
+router.put('/edit/:id', async (req, res) => {
+    try{
+        const member = await memberModel.findByIdAndUpdate(req.params.id, {...req.body}, {new: true})
+        req.flash('success', 'Member has been updated successfully')
+        res.redirect('/user/members/'+req.params.id)
+    }catch(err){
+        req.flash('error', 'Failed to update member')
+        res.redirect('/user/members/'+req.params.id)
+    }
 })
 
 router.get('/:id', async (req, res) => {
