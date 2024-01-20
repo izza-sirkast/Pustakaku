@@ -8,7 +8,7 @@ const passport = require('passport')
 const MongoStore = require('connect-mongo')
 
 // Local libraries
-const {passportSetup, checkAuthenticated} = require('./utils/authentication/passport-authentication')
+const {passportSetup, checkAuthenticated, checkIsStaff, checkIsMember} = require('./utils/authentication/passport-authentication')
 
 const app = express();
 
@@ -44,11 +44,20 @@ app.use(flash())
 passportSetup(passport)
 
 // Routes
+// ======================================================
+// Authentication
+const authenticationRoute = require('./routes/authentication')
+
+// Staff
 const indexRoute = require('./routes/user/index');
 const authorsRoute = require('./routes/user/authors');
 const booksRotue = require('./routes/user/books')
-const authenticationRoute = require('./routes/authentication')
 const membersRoute = require('./routes/user/members')
+
+// Member
+const memberDashboardRoute = require('./routes/member/dashboard')
+
+
 
 // Database setup
 mongoose.connect(process.env.DATABASE_URL);
@@ -57,12 +66,17 @@ db.on('error', err => console.log(err));
 db.once('open', () => console.log('Connected to MongoDB...'));
 
 app.use('/auth', authenticationRoute)
-app.use('/user/authors', checkAuthenticated, authorsRoute);
-app.use('/user/books', checkAuthenticated, booksRotue);
-app.use('/user/members', checkAuthenticated, membersRoute)
-app.use('/user', checkAuthenticated, indexRoute);
-app.get('/', checkAuthenticated, (req, res) => {
-    res.redirect('/user')
-})
 
-app.listen(process.env.PORT || 3000);
+// Route for user
+app.use('/user/authors', checkIsStaff, authorsRoute);
+app.use('/user/books', checkIsStaff, booksRotue);
+app.use('/user/members', checkIsStaff, membersRoute)
+app.use('/user', checkIsStaff, indexRoute);
+app.get('/', checkIsStaff)
+
+// Route for member
+app.use('/member', checkIsMember, memberDashboardRoute);
+
+app.listen(process.env.PORT || 3000, () => {
+    console.log('Listening to server at http://localhost:3000')
+});
