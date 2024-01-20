@@ -1,22 +1,11 @@
 const express = require('express');
-// const multer = require('multer');
-// const path = require('path');
-// const fs = require('fs');
-const bookModel = require('../models/book');
-const authorModel = require('../models/author');
-const {checkAuthenticated} = require('../utils/authentication/passport-authentication')
+const bookModel = require('../../models/book');
+const authorModel = require('../../models/author');
+const {checkAuthenticated} = require('../../utils/authentication/passport-authentication')
 
 const router = express.Router();
 
 const coverMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
-// Cover image destination storage and filename route setup, using multer save in folder
-// const coverImageDest = path.join('public', coverImageBasePath);
-// const upload = multer({
-//     dest:  coverImageDest,
-//     fileFilter: (req, file, callback) => {
-//         callback(null, coverMimeTypes.includes(file.mimetype));
-//     }
-// })
 
 // To render book form
 async function renderFormNewBook(res, bookModel, error = false){
@@ -26,9 +15,9 @@ async function renderFormNewBook(res, bookModel, error = false){
         if (error){
             renderData.error = 'Error: Create new book failed';
         }
-        res.render('books/new', renderData); 
+        res.render('user/books/new', renderData); 
     } catch {
-        res.redirect('/books');
+        res.redirect('/user/books');
     }
 }
 
@@ -51,13 +40,13 @@ router.get('/', async (req, res) => {
 
     try{
         const books = await query.exec();
-        res.render('books/index', {
+        res.render('user/books/index', {
             books, 
             searchParams,
             successMessage : req.flash('deleteSuccess')
         });
     }catch{
-        res.redirect('/')
+        res.redirect('/user')
     }
 })
 
@@ -67,8 +56,7 @@ router.get('/new', async (req, res) => {
 })
 
 // Process creating new book
-router.post('/new',  /*upload.single('coverImage') , */ async (req, res) => {
-    //const fileName = req.file != null ? req.file.filename : null;
+router.post('/new', async (req, res) => {
     const { title, author, publishDate, pageCount, description, coverImage } = req.body;
     const book = new bookModel({
         title,
@@ -80,12 +68,8 @@ router.post('/new',  /*upload.single('coverImage') , */ async (req, res) => {
     try{
         saveCoverImage(book, coverImage)
         const newBook = await book.save()
-        res.redirect('/books')
+        res.redirect('/user/books')
     }catch{
-        // Directly delete file image when there's an error
-        // fs.unlink(path.join('public', coverImageBasePath, fileName), (err) => {
-        //     if (err) { console.log(err) };
-        // })
         renderFormNewBook(res, book, true);
     }
 })
@@ -95,12 +79,12 @@ router.get('/:id/edit', async (req, res) => {
     try{
         const book = await bookModel.findById(req.params.id)
         const authors = await authorModel.find()
-        res.render('books/edit', {
+        res.render('user/books/edit', {
             book,
             authors
         })
     }catch{
-        red.redirect('/books/'+req.params.id)
+        red.redirect('/user/books/'+req.params.id)
     }
 })
 
@@ -108,13 +92,13 @@ router.get('/:id/edit', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try{
         const book = await bookModel.findById(req.params.id).populate('author').exec()
-        res.render('books/book', {
+        res.render('user/books/book', {
             book,
             deleteError : req.flash('deleteError'),
             updateStatusMessage : req.flash('updateStatusMessage')
         })
     }catch{
-        res.redirect('/books')
+        res.redirect('/user/books')
     }
 })
 
@@ -133,10 +117,10 @@ router.put('/:id',  async (req, res) => {
         }
         await book.save()
         req.flash('updateStatusMessage', 'Book is updated successfully')
-        res.redirect('/books/'+req.params.id)
+        res.redirect('/user/books/'+req.params.id)
     }catch {
         req.flash('updateStatusMessage', 'Error : failed to update book')
-        res.redirect('/books/'+req.params.id)
+        res.redirect('/user/books/'+req.params.id)
     }
 })
 
@@ -145,10 +129,10 @@ router.delete('/:id', async (req, res) => {
     try {
         const deletedBook = await bookModel.findOneAndDelete({_id : req.params.id})
         req.flash('deleteSuccess', 'Book is deleted successfully')
-        res.redirect('/books')
+        res.redirect('/user/books')
     } catch  {
         req.flash('deleteError', 'Error : failed to delete the book')
-        res.redirect('/books/'+req.params.id)
+        res.redirect('/user/books/'+req.params.id)
     }
 })
 

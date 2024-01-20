@@ -1,0 +1,28 @@
+<a href="/user/members">Back to members listing</a>
+<form action="/user/members/add" method="post">
+    <h2>Add New Member</h2>
+    
+    <% if (messages.error) { %>
+        <p><%= messages.error %></p>
+    <% } %>
+
+    <div class="input-item">
+        <label for="name">Name : </label><br>
+        <input type="text" name="name" id="name" required>
+    </div>
+
+    <div class="input-item">
+        <label for="email">Email : </label><br>
+        <input type="email" name="email" id="email" required>
+    </div>
+
+    <div class="input-item">
+        <label for="password">Password : </label><br>
+        <input type="password" name="password" id="password" required>
+    </div>
+
+    <div class="input-item">
+        <a href="/user/members" class="btn">Cancel</a>
+        <button type="submit" class="btn btn-success">Add</button>
+    </div>
+</form>

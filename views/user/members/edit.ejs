@@ -1,0 +1,19 @@
+<h2>Edit member</h2>
+<form action="/user/members/edit/<%= member._id %>?_method=PUT" method="POST">
+    <div class="input-item">
+        <label for="name">Name : </label>
+        <br>
+        <input type="text" name="name" id="name" value="<%= member.name %>"  required>
+    </div>
+
+    <div class="input-item">
+        <label for="email">Email : </label>
+        <br>
+        <input type="email" name="email" id="email" value="<%= member.email %>" required>
+    </div>
+
+    <div class="input-item">
+        <a href="/user/member/<%= member._id %>" class="btn">Cancel</a>
+        <button type="submit" class="btn btn-success">Edit</button>
+    </div>
+</form>

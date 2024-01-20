@@ -1,9 +1,0 @@
-<h1>Welcome back, <%= user.username %></h1>
-<h3>Recently added books</h3>
-<div class="books-listing">
-    <% books.forEach(book => { %>
-        <a href="/books/<%= book._id %>">
-            <img src="<%= book.coverImageRender %>" height="150" width="100">
-        </a>
-    <% }) %>
-</div>

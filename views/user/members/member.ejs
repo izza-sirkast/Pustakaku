@@ -1,0 +1,20 @@
+<a href="/user/members">Back to all members</a>
+<br>
+<% if (messages.success) { %>
+    <p style="color: green"><%= messages.success %></p>
+<% } %>
+<% if (messages.error) { %>
+    <p style="color: red"><%= messages.error %></p>
+<% } %>
+<h2><%= member.name %></h2>
+<p><%= member.email %></p>
+<ul style="display: flex; list-style: none; align-items: center; padding-left: 0px;">
+    <li>
+        <a href="/user/members/edit/<%= member._id %>" class="btn">Edit</a>
+    </li>
+    <li>
+        <form action="/user/members/delete/<%= member._id %>?_method=DELETE" method="post">
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure want to delete this member?')">Delete</button>
+        </form>
+    </li>
+</ul>

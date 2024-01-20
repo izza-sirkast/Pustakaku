@@ -3,13 +3,12 @@ const ejsLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override')
 const session = require('express-session')
-// const flash = require('connect-flash')
 const flash = require('express-flash')
 const passport = require('passport')
 const MongoStore = require('connect-mongo')
 
 // Local libraries
-const {passportSetup, checkAuthenticated} = require('./utils/authentication/passport-authentication')
+const {passportSetup, checkAuthenticated, checkIsStaff, checkIsMember} = require('./utils/authentication/passport-authentication')
 
 const app = express();
 
@@ -45,10 +44,20 @@ app.use(flash())
 passportSetup(passport)
 
 // Routes
-const indexRoute = require('./routes/index');
-const authorsRoute = require('./routes/authors');
-const booksRotue = require('./routes/books')
+// ======================================================
+// Authentication
 const authenticationRoute = require('./routes/authentication')
+
+// Staff
+const indexRoute = require('./routes/user/index');
+const authorsRoute = require('./routes/user/authors');
+const booksRotue = require('./routes/user/books')
+const membersRoute = require('./routes/user/members')
+
+// Member
+const memberDashboardRoute = require('./routes/member/dashboard')
+
+
 
 // Database setup
 mongoose.connect(process.env.DATABASE_URL);
@@ -57,8 +66,17 @@ db.on('error', err => console.log(err));
 db.once('open', () => console.log('Connected to MongoDB...'));
 
 app.use('/auth', authenticationRoute)
-app.use('/authors', checkAuthenticated, authorsRoute);
-app.use('/books', checkAuthenticated, booksRotue);
-app.use('/', checkAuthenticated, indexRoute);
 
-app.listen(process.env.PORT || 3000);
+// Route for user
+app.use('/user/authors', checkIsStaff, authorsRoute);
+app.use('/user/books', checkIsStaff, booksRotue);
+app.use('/user/members', checkIsStaff, membersRoute)
+app.use('/user', checkIsStaff, indexRoute);
+app.get('/', checkIsStaff)
+
+// Route for member
+app.use('/member', checkIsMember, memberDashboardRoute);
+
+app.listen(process.env.PORT || 3000, () => {
+    console.log('Listening to server at http://localhost:3000')
+});

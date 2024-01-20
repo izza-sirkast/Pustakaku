@@ -13,13 +13,8 @@ const memberSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    },
-    memberType: {
-        type: String,
-        required: true,
-        enum: ['bronze', 'silver', 'gold']
     }
-})
+}) 
 
 const memberModel = mongoose.model('Member', memberSchema)
 
