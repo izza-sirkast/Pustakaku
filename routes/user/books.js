@@ -1,6 +1,7 @@
 const express = require('express');
 const bookModel = require('../../models/book');
 const authorModel = require('../../models/author');
+const memberModel = require('../../models/member')
 const {checkAuthenticated} = require('../../utils/authentication/passport-authentication')
 
 const router = express.Router();
@@ -11,7 +12,8 @@ const coverMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
 async function renderFormNewBook(res, bookModel, error = false){
     try {
         const authors = await authorModel.find({});
-        const renderData = {book: bookModel, authors};
+        const members = await memberModel.find()
+        const renderData = {book: bookModel, authors, members};
         if (error){
             renderData.error = 'Error: Create new book failed';
         }
@@ -57,9 +59,10 @@ router.get('/new', async (req, res) => {
 
 // Process creating new book
 router.post('/new', async (req, res) => {
-    const { title, author, publishDate, pageCount, description, coverImage } = req.body;
+    const { title, quantity, author, publishDate, pageCount, description, coverImage } = req.body;
     const book = new bookModel({
         title,
+        quantity,
         author,
         publishDate: new Date(publishDate),
         pageCount,

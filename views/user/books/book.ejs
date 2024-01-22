@@ -2,11 +2,23 @@
     <p style="color: red;"><%= deleteError[0] %></p>
 <% } %>
 <% if (updateStatusMessage.length != 0) { %>
-    <p><%= updateStatusMessage[0] %></p>
+    <p style="color: greenyellow;"><%= updateStatusMessage[0] %></p>
 <% } %>
 
 <h2><%= book.title %></h2>
 <img src="<%= book.coverImageRender %>" height="200px"></img>
+<p></p>
+<p>Number of all books : <span><%= book.quantity %></span></p>
+<p>Number of books available : <span style="color: green">3 </span></p>
+
+<% if (book.lendBy.length != 0) { %>
+    <p>Book lender : 
+        <% book.lendBy.forEach(lender => { %>
+            <span><%= lender %></span>
+        <% }) %>
+    </p>
+<% } %>
+
 <a href="/user/authors/<%= book.author._id %>"><p>Author : <%= book.author.name %></p></a>
 <p>Description : <%= book.description %></p>
 <p>Page count : <%= book.pageCount %></p>

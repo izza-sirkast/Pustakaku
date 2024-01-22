@@ -29,10 +29,14 @@ const bookSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    quantity: {
+        type: Number,
+        required: true
+    },
     lendBy: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: [mongoose.Schema.Types.ObjectId],
         ref: 'Member',
-        default: null
+        default: []
     },
     coverImage: {
         type: Buffer,
