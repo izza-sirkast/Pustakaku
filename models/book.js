@@ -29,6 +29,11 @@ const bookSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    lendBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Member',
+        default: null
+    },
     coverImage: {
         type: Buffer,
         required: true

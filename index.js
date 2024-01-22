@@ -56,7 +56,7 @@ const membersRoute = require('./routes/user/members')
 
 // Member
 const memberDashboardRoute = require('./routes/member/dashboard')
-
+const memberBooksRoute = require('./routes/member/books')
 
 
 // Database setup
@@ -75,7 +75,16 @@ app.use('/user', checkIsStaff, indexRoute);
 app.get('/', checkIsStaff)
 
 // Route for member
-app.use('/member', checkIsMember, memberDashboardRoute);
+app.use('/member', chooseLayout('member'), checkIsMember, memberDashboardRoute);
+app.use('/member/books', checkIsMember, memberBooksRoute)
+
+// Middleware to choose the layout based on the route / user
+function chooseLayout(route){
+    return (req, res, next) => {
+        res.locals.layout = `layouts/${route}-layout`
+        next()
+    }
+}
 
 app.listen(process.env.PORT || 3000, () => {
     console.log('Listening to server at http://localhost:3000')
