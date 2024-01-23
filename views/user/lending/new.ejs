@@ -1,0 +1,23 @@
+<h1>Book Lending Form</h1>
+
+<h1>Book</h1>
+<h2><%= book.title %></h2>
+<img src="<%= book.coverImageRender %>" height="200" style="margin-bottom: 15px;">
+
+<h2>Lender</h2>
+
+<form action="/user/lending/new/<%= book._id %>" method="post" style="margin-bottom: 15px;">
+    <label for="searchMember">Search : </label>
+    <input type="text" name="searchMember" id="searchMember">
+
+    <a href="/user/lending/new/<%= book._id %>" class="btn" style="margin-left: 5px; margin-right: 3px;">Cancel</a>
+    <button type="submit" class="btn btn-success">Search</button>
+</form>
+
+<% members.forEach(member => { %>
+    <div class="btn" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+        <p><%= member.name %></p>
+        <p><%= member._id %></p>
+        <p><%= member.email %></p>
+    </div>
+<% }) %>

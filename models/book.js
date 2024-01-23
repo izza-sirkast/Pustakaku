@@ -29,6 +29,15 @@ const bookSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    quantity: {
+        type: Number,
+        required: true
+    },
+    lendBy: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Member',
+        default: []
+    },
     coverImage: {
         type: Buffer,
         required: true
@@ -42,6 +51,14 @@ const bookSchema = mongoose.Schema({
 bookSchema.virtual('coverImageRender').get(function() {
     if(this.coverImage != null && this.coverImageType != null){
         return `data:${this.coverImageType};charset=utf;base64,${this.coverImage.toString('base64')}`;
+    }
+})
+
+bookSchema.virtual('available').get(function() {
+    if(this.lendBy.length > 0){
+        return true
+    }else{
+        return false
     }
 })
 

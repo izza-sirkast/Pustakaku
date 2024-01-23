@@ -1,0 +1,6 @@
+<h1>Books listing</h1>
+<% books.forEach(book => { %>
+    <a href="/member/books/<%= book._id %>">
+        <img src="<%= book.coverImageRender %>" height="150">
+    </a>
+<% }) %>
