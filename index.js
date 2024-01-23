@@ -74,7 +74,9 @@ app.use('/user/books', checkIsStaff, booksRotue);
 app.use('/user/members', checkIsStaff, membersRoute)
 app.use('/user/lending', checkIsStaff, lendingRoute)
 app.use('/user', checkIsStaff, indexRoute);
-app.get('/', checkIsStaff)
+app.get('/', checkIsStaff, (req, res) => {
+    res.redirect('/user')
+})
 
 // Route for member
 app.use('/member', chooseLayout('member'), checkIsMember, memberDashboardRoute);
