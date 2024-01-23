@@ -54,6 +54,14 @@ bookSchema.virtual('coverImageRender').get(function() {
     }
 })
 
+bookSchema.virtual('available').get(function() {
+    if(this.lendBy.length > 0){
+        return true
+    }else{
+        return false
+    }
+})
+
 const bookModel = mongoose.model('Book', bookSchema);
 
 module.exports = bookModel

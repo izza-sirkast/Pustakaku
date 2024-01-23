@@ -25,6 +25,7 @@
 <p>Publish date : <%= book.publishDate.toDateString() %></p>
 <div class="btn-layout">
     <a href="/user/books/<%= book._id %>/edit" class="btn">Edit</a>
+    <a href="/user/lending/new/<%= book._id %>" class="btn">Lend</a>
     <form action="/user/books/<%= book._id %>?_method=DELETE" method="POST">
         <button type="submit" onclick="return confirm('Are you sure want delete this book ?')" class="btn btn-danger">Delete</button>
     </form>

@@ -53,6 +53,7 @@ const indexRoute = require('./routes/user/index');
 const authorsRoute = require('./routes/user/authors');
 const booksRotue = require('./routes/user/books')
 const membersRoute = require('./routes/user/members')
+const lendingRoute = require('./routes/user/lending')
 
 // Member
 const memberDashboardRoute = require('./routes/member/dashboard')
@@ -67,10 +68,11 @@ db.once('open', () => console.log('Connected to MongoDB...'));
 
 app.use('/auth', authenticationRoute)
 
-// Route for user
+// Route for staff
 app.use('/user/authors', checkIsStaff, authorsRoute);
 app.use('/user/books', checkIsStaff, booksRotue);
 app.use('/user/members', checkIsStaff, membersRoute)
+app.use('/user/lending', checkIsStaff, lendingRoute)
 app.use('/user', checkIsStaff, indexRoute);
 app.get('/', checkIsStaff)
 

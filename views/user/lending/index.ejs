@@ -1,0 +1,6 @@
+<h1>This is landing page</h1>
+<% books.forEach(book => { %>
+    <a href="/user/books/<%= book._id %>">
+        <img src="<%= book.coverImageRender %>" width="100" height="150">
+    </a>
+<% }) %>
