@@ -1,30 +1,37 @@
-<h1>Login</h1>
-<% if (messages.error) { %>
-    <p style="color: red;"><%= messages.error %></p>
-<% } %>
-<form action="/auth/login" method="post">
-    <div class="input-item">
-        <label>Login as ?</label>
-        <br>
-        <input type="radio" name="loginAs" value="staff">Staff</input>
-        <input type="radio" name="loginAs" value="member">Member</input>
-    </div>
+<div class="flex flex-col items-center mb-16 w-2/3 max-w-lg bg-blue-200 rounded-md py-6 ">
+    <h1 class="text-5xl mb-5">Login</h1>
 
-    <div class="input-item">
-        <label for="email">Email : </label>
-        <br>
-        <input type="email" name="email" id="email" required>
-    </div>
+    <% if (messages.error) { %>
+        <p style="color: red;"><%= messages.error %></p>
+    <% } %>
+        
+    <form action="/auth/login" method="post" class="w-4/5">
+        
+        <label class="block">Login as ?</label>
+        <div class="inline-flex items-center mr-2 mb-3">
+            <input type="radio" name="loginAs" value="staff" id="staff" class="hover:cursor-pointer mr-1" checked />
+            <label for="staff" class="hover:cursor-pointer">Staff</span>
+        </div>
 
-    <div class="input-item">
-        <label for="password">Password :</label>
-        <br>
-        <input type="password" name="password" id="password" required>
-    </div>
+        <div class="inline-flex items-center">
+            <input type="radio" name="loginAs" value="member" id="member" class="hover:cursor-pointer mr-1" />
+            <label for="member" class="hover:cursor-pointer">Member</label>
+        </div>
 
-    <br>
-    <div class="input-item">
-        <a href="/auth/register" class="btn">Create an account</a>
-        <button type="submit" class="btn btn-success">Login</button>
-    </div>
-</form>
+        <div class="mb-4">
+            <label for="email">Email : </label>
+            <br>
+            <input type="email" name="email" id="email" class="w-full h-7 rounded-md px-2" required>
+        </div>
+        
+        <div class="mb-7">
+            <label for="password">Password :</label>
+            <br>
+            <input type="password" name="password" id="password" class="w-full h-7 rounded-md px-2" required>
+        </div>
+        
+        <button type="submit" class="block bg-sky-300 hover:bg-sky-700 ease-out duration-200 py-1 px-3 w-full rounded-md mb-1">Login</button>
+        
+        <a href="/auth/register" class="text-sm text-blue-500 underline">Create an account</a>
+    </form>
+</div>
