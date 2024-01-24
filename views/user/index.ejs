@@ -1,63 +1,105 @@
-<div class="library-analytics">
-    <h2>Book Analytics</h2>
-    <h3>Total books           : 102</h3>
-    <h3>Total books available : 83</h3>
-    <h3>Total members         : 24</h3>
-    <a class="btn" href="/user">See detailed analytics</a>
+<h1 class="text-3xl mb-2">Analytics</h1>
+<div class="inline-flex flex-col border-2 border-black py-3 px-4 rounded-md mb-10">
+    <div class="flex items-center mb-4">
+        <ion-icon name="book-outline" class="text-5xl mr-4"></ion-icon>
+        <h2 class="text-2xl">Book Analytics</h2>
+    </div>
+
+    <div class="flex flex-col md:flex-row">
+        <div class="flex flex-col items-start mb-3 mr-3">
+            <span class="text-sm ml-1">Total Books</span>
+            <span class="text-3xl font-semibold p-0 ml-1">102</span>
+        </div>
+        
+        <div class="flex flex-col items-start mb-3 mr-3">
+            <span class="text-sm ml-1">Books Available</span>
+            <span class="text-3xl font-semibold p-0 ml-1">87</span>
+        </div>
+        
+        <div class="flex flex-col items-start mb-3 mr-3">
+            <span class="text-sm ml-1">E-Books Available</span>
+            <span class="text-3xl font-semibold p-0 ml-1">45</span>
+        </div>
+        
+        <div class="flex flex-col items-start mb-3 mr-3">
+            <span class="text-sm ml-1">New Books this Month</span>
+            <span class="text-3xl font-semibold p-0 ml-1">5</span>
+        </div>
+
+        <div class="flex flex-col items-start mb-3 mr-3">
+            <span class="text-sm ml-1">New Books this Year</span>
+            <span class="text-3xl font-semibold p-0 ml-1">18</span>
+        </div>
+    </div>
+        
+    <a class="block text-blue-500 underline" href="/user">See detailed analytics</a>
 </div>
 
-<br>
-<div class="library-menu">
-    <h2>Main Menu</h2>
-    <div class="menu-item">
-        <a href="/user/books" class="btn">See all books</a>
+<div class="inline-flex flex-col border-2 border-black py-3 px-4 rounded-md mb-10">
+    <div class="flex items-center mb-4">
+        <ion-icon name="person-outline" class="text-5xl mr-4"></ion-icon>
+        <h2 class="text-2xl">Member Analytics</h2>
     </div>
-    <br>
-    <div class="menu-item">
-        <a href="/user/books" class="btn">See book analytics</a>
+
+    <div class="flex flex-col md:flex-row">
+        <div class="flex flex-col items-start mb-3 mr-3">
+            <span class="text-sm ml-1">Total Members</span>
+            <span class="text-3xl font-semibold p-0 ml-1">27</span>
+        </div>
+        
+        <div class="flex flex-col items-start mb-3 mr-3">
+            <span class="text-sm ml-1">New Members this Month</span>
+            <span class="text-3xl font-semibold p-0 ml-1">6</span>
+        </div>
     </div>
-    <br>
-    <div class="menu-item">
-        <a href="/user/books/new" class="btn">Add new book</a>
+        
+    <a class="block text-blue-500 underline" href="/user">See detailed analytics</a>
+</div>
+
+<h2 class="text-3xl mb-2">Main Menu</h2>
+<div class="inline-flex flex-col border-2 border-black rounded-md py-3 px-4">
+
+    <h2 class="text-2xl mb-1">Books</h2>
+    <div class="flex flex-wrap *:mb-3 mb-3">
+        <a href="/user/books" class="border border-black rounded-md py-1 px-2 text-sm bg-sky-200 cursor-pointer mr-3 hover:bg-sky-300 transition-all ease-in">See all books</a>
+
+        <a href="/user/books" class="border border-black rounded-md py-1 px-2 text-sm bg-sky-200 cursor-pointer mr-3 hover:bg-sky-300 transition-all ease-in">See book analytics</a>
+
+        <a href="/user/books/new" class="border border-black rounded-md py-1 px-2 text-sm bg-sky-200 cursor-pointer mr-3 hover:bg-sky-300 transition-all ease-in">Add new book</a>
+
+        <a href="/user/lending" class="border border-black rounded-md py-1 px-2 text-sm bg-sky-200 cursor-pointer mr-3 hover:bg-sky-300 transition-all ease-in">See books lending</a>
+
+        <a href="/user/lending/new" class="border border-black rounded-md py-1 px-2 text-sm bg-sky-200 cursor-pointer mr-3 hover:bg-sky-300 transition-all ease-in">Add new lending</a>
     </div>
-    <br>
-    <div class="menu-item">
-        <a href="/user/lending" class="btn">See books lending</a>
+
+    <h2 class="text-2xl mb-1">Members</h2>
+    <div class="flex flex-wrap *:mb-3 mb-3">
+        <a href="/user/members" class="border border-black rounded-md py-1 px-2 text-sm bg-sky-200 cursor-pointer mr-3 hover:bg-sky-300 transition-all ease-in">See all members</a>
+
+        <a href="/user" class="border border-black rounded-md py-1 px-2 text-sm bg-sky-200 cursor-pointer mr-3 hover:bg-sky-300 transition-all ease-in">See members analytics</a>
+
+        <a href="/user/members/new" class="border border-black rounded-md py-1 px-2 text-sm bg-sky-200 cursor-pointer mr-3 hover:bg-sky-300 transition-all ease-in">Add new member</a>
     </div>
-    <br>
-    <div class="menu-item">
-        <a href="/user/lending/new" class="btn">Add new lending</a>
+
+    <h2 class="text-2xl mb-1">Transaction</h2>
+    <div class="flex flex-wrap *:mb-3 mb-3">
+        <a href="/user" class="border border-black rounded-md py-1 px-2 text-sm bg-sky-200 cursor-pointer mr-3 hover:bg-sky-300 transition-all ease-in">See transactions history</a>
     </div>
-    <br>
-    <div class="menu-item">
-        <a href="/user" class="btn">See transaction history</a>
-    </div>
-    <br>
-    <div class="menu-item">
-        <a href="/user/authors/" class="btn">See all authors</a>
-    </div>
-    <br>
-    <div class="menu-item">
-        <a href="/user/authors/new" class="btn">Add new author</a>
-    </div>
-    <br>
-    <div class="menu-item">
-        <a href="/user/members" class="btn">See all members</a>
-    </div>
-    <br>
-    <div class="menu-item">
-        <a href="/user/members/add" class="btn">Add new member</a>
+
+    <h2 class="text-2xl mb-1">Authors</h2>
+    <div class="flex flex-wrap *:mb-3">
+        <a href="/user/authors" class="border border-black rounded-md py-1 px-2 text-sm bg-sky-200 cursor-pointer mr-3 hover:bg-sky-300 transition-all ease-in">See all authors</a>
+
+        <a href="/user/authors/new" class="border border-black rounded-md py-1 px-2 text-sm bg-sky-200 cursor-pointer mr-3 hover:bg-sky-300 transition-all ease-in">Add new author</a>
     </div>
 </div>
 
-<br>
-<br>
-<div class="">
-    <h2>Recently added books</h2>
+<div class="mt-10">
+    <h2 class="text-3xl mb-3">Recently Added Books</h2>
     <div class="books-listing">
         <% books.forEach(book => { %>
             <a href="/user/books/<%= book._id %>">
-                <img src="<%= book.coverImageRender %>" height="150" width="100">
+                <img src="<%= book.coverImageRender %>" class="h-52">
             </a>
         <% }) %>
     </div>

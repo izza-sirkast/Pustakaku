@@ -24,9 +24,11 @@
 </head>
 <body class="bg-sky-100 max-w-screen">
     <%- include('../partials/staff-navbar.ejs') %>
-    <div class="main-container">
+
+    <div class="max-w-5xl px-10 py-7 mx-auto">
         <%- body %>
     </div>
+
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
     <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
     <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
@@ -42,13 +44,13 @@
         function toggleMenu(e){
             const menu = document.querySelector('#menu')
             if(e.name == 'menu-outline'){
-                e.name = 'close-outline'
-                menu.classList.add('top-[40px]')
+                menu.classList.add('top-[45px]')
                 menu.classList.remove('opacity-0')
+                e.name = 'close-outline'
             }else if(e.name == 'close-outline'){
-                e.name = 'menu-outline'
-                menu.classList.remove('top-[40px]')
+                menu.classList.remove('top-[45px]')
                 menu.classList.add('opacity-0')
+                e.name = 'menu-outline'
             }
         }
     </script>
