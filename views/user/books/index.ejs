@@ -1,38 +1,74 @@
-<h1>All books listing</h1>
-<div class="form">
-    <h3 class="form-title">Search book</h4>
+<a href="/user" class="text-blue-500 hover:text-blue-700 mr-3">&larr; back to dashboard</a>
+
+<div class="mt-2">
     <form action="/user/books" method="get">
-        <div class="input-item">
-            <label for="title">Title : </label>
-            <input type="text" name="title" id="title" value="<%= searchParams.title %>"></input>
+        <div class="md:flex md:items-center">
+            <h1 class="text-3xl mr-10">All books listing</h1>
+            
+            <label for="search" class="mt-2 md:hidden hover:cursor-pointer block text-xl font-normal">Search</label>
+
+            <div class="inline-flex items-center bg-sky-200 rounded-md border border-black">        
+                <button type="submit" class="flex flex-col justify-center px-1">
+                    <ion-icon name="search-outline" class="text-lg hover:cursor-pointer hover:text-blue-900 transition-all ease-in"></ion-icon>
+                </button>
+                
+                <input type="text" name="title" id="search" value="<%= searchParams.title %>" class="px-2 border-l border-r border-black"></input>
+                
+                
+                <button class="flex flex-col justify-center" onclick="document.getElementById('search').value = ''">
+                    <ion-icon name="close-outline" class="text-2xl  hover:cursor-pointer hover:text-blue-900 transition-all ease-in"></ion-icon>
+                </button>
+            </div>
         </div>
+
         
-        <div class="input-item">
-            <label for="publishedAfter">Published after : </label>
-            <input type="date" name="publishedAfter" id="publishedAfter" value="<%= searchParams.publishedAfter %>"></input>
+        <button class="mt-3 flex items-center">
+            <ion-icon class="text-xl mr-1" name="filter-circle-outline"></ion-icon>
+            <h2 class="text-xl font-normal">Filter</h2>
+        </button>
+
+        <div class="md:flex md:flex-wrap" id="filter-content">
+            <div class="mt-1 mr-2">
+                <label for="publishedBefore">Published before </label>
+                <input type="date" name="publishedBefore" id="publishedBefore" value="<%= searchParams.publishedBefore %>" class="px-2 rounded-md border border-black before-input"></input>
+            </div>
+
+            <div class="mt-1 mr-2">
+                <label for="publishedAfter">Published after </label>
+                <input type="date" name="publishedAfter" id="publishedAfter" value="<%= searchParams.publishedAfter %>" class="px-2 rounded-md border border-black after-input"></input>
+            </div>
+
+            <div class="mt-1 mr-2">
+                <label for="author">Author </label>
+                <select name="author" id="author" class="px-1 rounded-md border border-black select-input">
+                    <option value="">---------</option>
+                    <% authors.forEach(author => { %>
+                        <% if (author._id == searchParams.author) { %>
+                            <option value="<%= author._id %>" selected><%= author.name %></option>
+                        <% } else { %>
+                            <option value="<%= author._id %>"><%= author.name %></option>
+                        <% } %>
+                    <% }) %>
+                </select>
+            </div>
+            
         </div>
-        
-        <div class="input-item">
-            <label for="publishedBefore">Published before </label>
-            <input type="date" name="publishedBefore" id="publishedBefore" value="<%= searchParams.publishedBefore %>"></input>
-        </div>
-        
-        <div class="input-item">
-            <a href="user/books" class="btn">Cancel</a>
-            <button type="submit" class="btn btn-success">Search</button>
+        <div class="mt-2">
+            <button class="bg-white border border-black rounded-md px-2 inline-block hover:pointer hover:bg-gray-200 transition-all ease-in" onclick="resetForm()">Cancel</button>
+
+            <button type="submit" class="bg-green-300 border border-black rounded-md inline-block px-2 hover:pointer hover:bg-green-400 transition-all ease-in">Apply</button>
         </div>
     </form>
-</div>
         
-        <br>
-<% if (successMessage.length != 0) { %>
-    <p style="color: green;"><%= successMessage[0] %></p>
-<% } %>
-
-<div class="books-listing">
-    <% books.forEach(book => { %>
-        <a href="/user/books/<%= book._id %>">
-            <img src="<%= book.coverImageRender %>" width="100" height="150">
-        </a>
-    <% }) %>
+    <% if (successMessage.length != 0) { %>
+        <p style="color: green;"><%= successMessage[0] %></p>
+    <% } %>
+    
+    <div class="flex mt-8 *:mr-3 *:mb-3">
+        <% books.forEach(book => { %>
+            <a href="/user/books/<%= book._id %>" class="">
+                <img src="<%= book.coverImageRender %>" class="h-52 bg-slate-500">
+            </a>
+        <% }) %>
+    </div>
 </div>

@@ -1,19 +1,21 @@
-<h2>Edit member</h2>
+<h1 class="text-3xl">Edit Member</h1>
+
 <form action="/user/members/edit/<%= member._id %>?_method=PUT" method="POST">
-    <div class="input-item">
-        <label for="name">Name : </label>
+    <div class="mt-1 mb-2">
+        <label for="name">Name</label>
         <br>
-        <input type="text" name="name" id="name" value="<%= member.name %>"  required>
+        <input type="text" name="name" id="name" value="<%= member.name %>" class="px-2 rounded-md border border-black" required>
     </div>
 
-    <div class="input-item">
-        <label for="email">Email : </label>
+    <div class="mb-5">
+        <label for="email">Email</label>
         <br>
-        <input type="email" name="email" id="email" value="<%= member.email %>" required>
+        <input type="email" name="email" id="email" value="<%= member.email %>" class="px-2 rounded-md border border-black" required>
     </div>
 
-    <div class="input-item">
-        <a href="/user/member/<%= member._id %>" class="btn">Cancel</a>
-        <button type="submit" class="btn btn-success">Edit</button>
+    <div class="mb-2 flex items-center">
+        <a href="/user/members/<%= member._id %>" class="bg-gray-200 px-2 rounded-md border border-black hover:bg-gray-400 transition-all ease-in mr-2">Cancel</a>
+
+        <button type="submit" class="bg-green-300 px-2 rounded-md border border-black hover:bg-green-400 transition-all ease-in">Edit</button>
     </div>
 </form>

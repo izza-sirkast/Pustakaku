@@ -1,25 +1,37 @@
-<form action="/user/authors" method="get">
-    <h2>Search Author</h2>
-    <div class="input-item">
-        <label for="name">Name : </label>
-        <input type="text" name="name" id="name" value="<%= searchName %>"></input>
-    </div>
-    <div class="input-item">
-        <a href="/user/authors" class="btn">Cancel</a>
-        <button type="submit" class="btn btn-success">Search</button>
+<a href="/user" class="text-blue-500 hover:text-blue-700 mr-3">&larr; back to dashboard</a>
+
+<a href="/user/authors/new" class="px-2 bg-sky-200 rounded-md border border-black hover:bg-sky-300 transition-all ease-in">Add new author</a>
+
+<h1 class="text-3xl mt-3">All Authors Listing</h1>
+
+<form action="/user/authors" method="get" class="mb-4">
+    <div class="inline-flex items-center bg-sky-200 rounded-md border border-black mt-3">        
+        <button type="submit" class="flex flex-col justify-center px-1">
+            <ion-icon name="search-outline" class="text-lg hover:cursor-pointer hover:text-blue-900 transition-all ease-in"></ion-icon>
+        </button>
+        
+        <input type="text" name="name" id="name" value="<%= searchName %>" class="px-2 border-l border-r border-black"></input>
+        
+        <button class="flex flex-col justify-center" onclick="document.getElementById('name').value = ''">
+            <ion-icon name="close-outline" class="text-2xl  hover:cursor-pointer hover:text-blue-900 transition-all ease-in"></ion-icon>
+        </button>
     </div>
 </form>
+
 <% authors.forEach(author => { %>
-    <div class="author-item">
-        <h3 style="margin-right: 50px;"><%= author.name %></h3>
-        <ul style="display: flex; width: 150px; justify-content: space-between;">
-            <li><a href="/user/authors/<%= author._id %>" class="btn">View</a></li>
-            <li><a href="/user/authors/<%= author._id %>/edit" class="btn">Edit</a></li>
-            <li>
-                <form action="/user/authors/<%= author._id %>?_method=DELETE" method="post">
-                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure want to delete author ?')">Delete</button>
-                </form>
-            </li>
-        </ul>
+    <div class="w-full bg-sky-200 px-2 mb-2 py-1 max-w-lg rounded-md border border-black flex items-center justify-between">
+        <ion-icon name="person-circle-outline" class="text-2xl"></ion-icon>
+
+        <h3 class="text-lg mr-2"><%= author.name %></h3>
+            
+        <div class="flex items-center *:mr-1">
+            <a href="/user/authors/<%= author._id %>" class="px-2 bg-gray-200 rounded-md border border-black hover:bg-gray-400 transition-all ease-in">View</a>
+
+            <a href="/user/authors/<%= author._id %>/edit" class="px-2 bg-blue-300 rounded-md border border-black hover:bg-blue-400 transition-all ease-in">Edit</a>
+
+            <form action="/user/authors/<%= author._id %>?_method=DELETE" method="post">
+                <button type="submit" class="px-2 bg-red-400 rounded-md border border-black hover:bg-red-500 transition-all ease-in" onclick="return confirm('Are you sure want to delete this member?')">Delete</button>
+            </form>
+        </div>
     </div>
 <% }) %>

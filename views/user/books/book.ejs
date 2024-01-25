@@ -1,32 +1,48 @@
+<a href="/user/books" class="text-blue-500 hover:text-blue-700">&larr; back to books listing</a>
+
 <% if (deleteError.length != 0) { %>
     <p style="color: red;"><%= deleteError[0] %></p>
 <% } %>
 <% if (updateStatusMessage.length != 0) { %>
-    <p style="color: greenyellow;"><%= updateStatusMessage[0] %></p>
+    <p style="color: blue;"><%= updateStatusMessage[0] %></p>
 <% } %>
 
-<h2><%= book.title %></h2>
-<img src="<%= book.coverImageRender %>" height="200px"></img>
-<p></p>
-<p>Number of all books : <span><%= book.quantity %></span></p>
-<p>Number of books available : <span style="color: green">3 </span></p>
+<h1 class="text-3xl"><%= book.title %></h1>
 
-<% if (book.lendBy.length != 0) { %>
-    <p>Book lender : 
-        <% book.lendBy.forEach(lender => { %>
-            <span><%= lender %></span>
-        <% }) %>
+<div class="block mt-2 mb-3">
+    <img src="<%= book.coverImageRender %>" class="h-80 mr-3 mb-3 float-left">
+    
+    <p><b>Author : </b> 
+        <a href="/user/authors/<%= book.author._id %>" class="text-blue-500 hover:text-blue-700 underline"><%= book.author.name %></a>
     </p>
-<% } %>
 
-<a href="/user/authors/<%= book.author._id %>"><p>Author : <%= book.author.name %></p></a>
-<p>Description : <%= book.description %></p>
-<p>Page count : <%= book.pageCount %></p>
-<p>Publish date : <%= book.publishDate.toDateString() %></p>
-<div class="btn-layout">
-    <a href="/user/books/<%= book._id %>/edit" class="btn">Edit</a>
-    <a href="/user/lending/new/<%= book._id %>" class="btn">Lend</a>
+    <p><b>Number of all books : </b> <span><%= book.quantity %></span></p>
+
+    <p><b>Number of books available : </b><span class="text-green-600">3</span></p>
+    
+    <% if (book.lendBy.length != 0) { %>
+        <p><b>Book lender : </b>
+            <% book.lendBy.forEach(lender => { %>
+                <span><%= lender %></span>
+            <% }) %>
+        </p>
+    <% } %>
+
+    <p><b>Page count : </b><%= book.pageCount %></p>
+
+    <p><b>Publish date : </b><%= book.publishDate.toDateString() %></p>
+    
+    <p><b>Description : </b><%= book.description %></p>
+    
+    
+</div>
+
+<div class="clear-left flex *:mr-2">
+    <a href="/user/books/<%= book._id %>/edit" class="px-2 bg-gray-200 rounded-md border border-black hover:bg-gray-400 transition-all ease-in">Edit</a>
+
+    <a href="/user/lending/new/<%= book._id %>" class="px-2 bg-sky-300 rounded-md border border-black hover:bg-sky-400 transition-all ease-in">Lend</a>
+
     <form action="/user/books/<%= book._id %>?_method=DELETE" method="POST">
-        <button type="submit" onclick="return confirm('Are you sure want delete this book ?')" class="btn btn-danger">Delete</button>
+        <button type="submit" onclick="return confirm('Are you sure want delete this book ?')" class="px-2 bg-red-500 rounded-md border border-black hover:bg-red-600 transition-all ease-in">Delete</button>
     </form>
 </div>

@@ -1,15 +1,20 @@
-<h2>Add New Author</h1>
+<a href="/user/authors" class="text-blue-500 hover:text-blue-700 mr-3">&larr; back to all authors listing</a>
+
+<h1 class="text-3xl mt-2">Add New Author</h1>
+
 <% if (locals.errorMsg) { %>
-    <p><%= errorMsg %></p>
+    <p class="text-red-600"><%= errorMsg %></p>
 <% } %>
-<form action="/user/authors/new" method="post">
-    <div class="input-item">
+
+<form action="/user/authors/new" method="post" class="mt-4">
+    <div class="">
         <label for="name">Name</label>
-        <input type="text" name="name" id="name" value="<%= author.name %>"></input>
+        <input type="text" name="name" id="name" value="<%= author.name %>" class="block px-2 rounded-md border border-black"></input>
     </div>
 
-    <div class="input-item">
-        <a href="/user/authors" class="btn">Cancel</a>
-        <button type="submit" class="btn btn-success">Submit</button>
+    <div class="mt-2 flex items-center">
+        <a href="/user/authors" class="px-2 bg-gray-200 rounded-md border border-black hover:bg-gray-400 transition-all ease-in mr-2">Cancel</a>
+
+        <button type="submit" class="px-2 bg-green-300 rounded-md border border-black hover:bg-green-400 transition-all ease-in mr-2">Submit</button>
     </div>
 </form>

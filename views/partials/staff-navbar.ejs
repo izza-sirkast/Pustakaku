@@ -1,24 +1,35 @@
-<header class="w-screen bg-blue-300">
-    <nav class="flex justify-between max-w-3xl bg-blue-400">
-        <a href="/user"><h1>Pustakaku</h1></a>
-        <ul class="hamburger">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-        </ul>
-        <ul class="navbar-links">
-            <li><a href="/user">Dashboard</a></li>
-            <li><a href="/user/books">Books</a></li>
-            <li><a href="/user/books/new">New Book</a></li>
-            <li><a href="/user/authors">Authors</a></li>
-            <li><a href="/user/authors/new">Add Author</a></li>
+<header class="w-screen bg-sky-200 sticky top-0 z-50">
+    <nav class="md:flex md:justify-between md:items-center max-w-5xl mx-auto pl-10 py-2 bg-sky-200 px-4">
+        <div class="flex justify-between p-0 m-0">
+            <a href="/user"><h1 class="text-3xl font-semibold">Pustakaku</h1></a>
+            
+            <!-- Mobile display -->
+            <ion-icon name="menu-outline" class="md:hidden block text-4xl m-0   hover:cursor-pointer hover:text-gray-600 transition-all ease-in duration-200 pr-3" onclick="toggleMenu(this)"></ion-icon>    
+        </div>
+        
+            
+        <ul class="md:flex md:items-center md:z-auto z-[-1] md:*:mx-3 *:my-1 md:my-0 my-2 md:static absolute md:bg-sky-200 bg-sky-100 top-[-150px] left-0 md:p-0 pl-4 pb-2 pt-1 md:opacity-100 opacity-0 transition-all ease-in duration-300 md:w-auto w-screen *:select-none" id="menu">
+            <li>
+                <a href="/user">Dashboard</a>
+            </li>
+            <li>
+                <a href="/user/books">Books</a>
+            </li>
+            <li>
+                <a href="/user/books/new">New Book</a>
+            </li>
+            <li>
+                <a href="/user/authors">Authors</a>
+            </li>
+            <li>
+                <a href="/user/authors/new">Add Author</a>
+            </li>
             <li>
                 <form action="/auth/logout?_method=DELETE" method="POST">
-                    <button type="submit" onclick="return confirm('Are you sure want to log out?')" class="btn">Logout</button>
+                    <button type="submit" onclick="return confirm('Are you sure want to log out?')" class="px-2 bg-red-500 rounded-md hover:pointer hover:bg-red-700 hover:text-white transition-all ease-in">Logout</button>
                 </form>
             </li>
         </ul>
     </nav>
 </header>
-
 
