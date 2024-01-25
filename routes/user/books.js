@@ -39,13 +39,19 @@ router.get('/', async (req, res) => {
         searchParams.publishedBefore = req.query.publishedBefore;
         query = query.lte('publishDate', req.query.publishedBefore);
     }
+    if(req.query.author != null && req.query.author != ''){
+        searchParams.author = req.query.author
+        query = query.find({author: req.query.author})
+    }
 
     try{
+        const authors = await authorModel.find()
         const books = await query.exec();
         res.render('user/books/index', {
             books, 
             searchParams,
-            successMessage : req.flash('deleteSuccess')
+            successMessage : req.flash('deleteSuccess'),
+            authors
         });
     }catch{
         res.redirect('/user')

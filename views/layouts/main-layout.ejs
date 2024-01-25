@@ -44,14 +44,20 @@
         function toggleMenu(e){
             const menu = document.querySelector('#menu')
             if(e.name == 'menu-outline'){
-                menu.classList.add('top-[45px]')
+                menu.classList.add('top-[44px]')
                 menu.classList.remove('opacity-0')
                 e.name = 'close-outline'
             }else if(e.name == 'close-outline'){
-                menu.classList.remove('top-[45px]')
+                menu.classList.remove('top-[44px]')
                 menu.classList.add('opacity-0')
                 e.name = 'menu-outline'
             }
+        }
+
+        function resetForm(){
+            document.querySelector('.before-input').value = ''
+            document.querySelector('.after-input').value = ''
+            document.querySelector('.select-input').selectedIndex = 0
         }
     </script>
 </body>
