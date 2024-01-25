@@ -5,13 +5,15 @@ const bcrypt = require('bcrypt')
 
 router.get('/', async (req, res) => {
     const searchParams = {}
+    let query = memberModel.find()
     if(req.query.name && req.query.name !== ''){
+        searchParams.name = req.query.name
         const name = new RegExp(req.query.name, 'i')
-        searchParams.name = name
+        query = query.regex('name', name)
     }    
     try{
-        const members = await memberModel.find(searchParams)
-        res.render('user/members/index', {members})
+        const members = await query.exec()
+        res.render('user/members/index', {members, searchParams})
     }catch(err){
         console.log(err)
         res.redirect('/user')
