@@ -1,0 +1,17 @@
+<a href="/member/authors" class="text-blue-500 hover:text-blue-700 mr-3">&larr; back to all authors listing</a>
+
+<div class="w-full bg-sky-200 px-2 mb-2 py-1 max-w-lg rounded-md border border-black flex items-center justify-between mt-3">
+    <ion-icon name="person-circle-outline" class="text-4xl"></ion-icon>
+
+    <h3 class="text-xl mr-2"><%= author.name %></h3>
+</div>
+
+<h3 class="text-xl mt-4"><%= author.name %>'s books listing</h3>
+
+<div class="flex items-center flex-wrap *:mr-2">
+    <% books.forEach(book => { %>
+        <a href="/member/books/<%= book._id %>">
+            <img src="<%= book.coverImageRender %>" class="h-52">
+        </a>
+    <% }) %>
+</div>

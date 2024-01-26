@@ -37,7 +37,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try{
-        const book = await bookModel.findById(req.params.id)
+        const book = await bookModel.findById(req.params.id).populate('author').exec()
         res.render('member/books/book', {book})
     }catch(err){
         res.redirect('/member/books')
