@@ -1,1 +1,81 @@
-<h1>Welcome to our app</h1>
+<div class="bg-sky-200 py-2 px-4 flex flex-col border border-black w-full max-w-2xl rounded-md mx-auto">
+    <div class="flex items-center justify-between">
+        <ion-icon name="person-outline" class="text-5xl"></ion-icon>
+
+        <div class="flex flex-col items-start">
+            <h1 class="text-2xl">Muhammad Fatih</h1>
+            <p class="text-md text-gray-700">fth10@gmail.com</p>
+        </div>
+
+        <button class="block flex flex-col justify-center">
+            <ion-icon name="settings-outline" class="text-5xl hover:cursor-pointer hover:text-gray-600"></ion-icon>
+        </button>
+    </div>
+</div>
+
+<div class="bg-sky-200 py-3 px-4 inline-flex md:flex flex-col border border-black max-w-2xl rounded-md mx- mx-auto mt-7">
+    <h2 class="text-3xl">Activity</h2>
+
+    <div class="flex flex-col md:flex-row mt-3">
+        <div class="flex flex-col items-start mb-2 mr-3">
+            <span class="text-sm">Total Books Read</span>
+            <span class="text-3xl font-semibold p-0">27</span>
+        </div>
+        
+        <div class="flex flex-col items-start mb-3 mr-3">
+            <span class="text-sm ">Books Read this Month</span>
+            <span class="text-3xl font-semibold p-0">3</span>
+        </div>
+        
+        <div class="flex flex-col items-start mb-3 mr-3">
+            <span class="text-sm ">Books Read this Year</span>
+            <span class="text-3xl font-semibold p-0">9</span>
+        </div>
+
+        <div class="flex flex-col items-start mb-3 mr-3">
+            <span class="text-sm ">E-Books Read</span>
+            <span class="text-3xl font-semibold p-0">12</span>
+        </div>
+
+        <div class="flex flex-col items-start mb-3 mr-3">
+            <span class="text-sm ">Books Reviewed</span>
+            <span class="text-3xl font-semibold p-0">21</span>
+        </div>
+    </div>
+
+    <a class="block text-blue-500 underline hover:text-blue-700" href="/member">See detailed analytics</a>
+</div>
+
+<div class="mx-auto max-w-2xl mt-7">
+    <h2 class="text-3xl mb-1">Main Menu</h2>
+
+    <div class="inline-flex md:flex flex-col border-2 border-black rounded-md py-3 px-4">
+        <h2 class="text-2xl mb-1">Books</h2>
+        <div class="flex flex-wrap *:mb-3 mb-3">
+            <a href="/member/books" class="border border-black rounded-md py-1 px-2 text-sm bg-sky-200 cursor-pointer mr-3 hover:bg-sky-300 transition-all ease-in">See all books</a>
+
+            <a href="/member/books/lend" class="border border-black rounded-md py-1 px-2 text-sm bg-sky-200 cursor-pointer mr-3 hover:bg-sky-300 transition-all ease-in">Lend book</a>
+
+            <a href="/user/books/history" class="border border-black rounded-md py-1 px-2 text-sm bg-sky-200 cursor-pointer mr-3 hover:bg-sky-300 transition-all ease-in">See lending history</a>
+        </div>
+
+        <h2 class="text-2xl mb-1">Transaction</h2>
+        <div class="flex flex-wrap *:mb-3 mb-3">
+            <a href="/member" class="border border-black rounded-md py-1 px-2 text-sm bg-sky-200 cursor-pointer mr-3 hover:bg-sky-300 transition-all ease-in">See transactions history</a>
+        </div>
+        
+        <h2 class="text-2xl mb-1">Others</h2>
+        <div class="flex flex-wrap *:mb-3">
+            <a href="/member/authors" class="border border-black rounded-md py-1 px-2 text-sm bg-sky-200 cursor-pointer mr-3 hover:bg-sky-300 transition-all ease-in">See all authors</a>
+            
+            <a href="/member/genres" class="border border-black rounded-md py-1 px-2 text-sm bg-sky-200 cursor-pointer mr-3 hover:bg-sky-300 transition-all ease-in">See all genres</a>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="mt-7 mx-auto max-w-2xl">
+    <h2 class="text-3xl mb-3">Recently Lended Book</h2>
+    <div class="flex flex-wrap *:mr-3 *mb-3">
+        
+    </div>
+</div> -->
