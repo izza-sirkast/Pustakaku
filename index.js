@@ -58,6 +58,7 @@ const lendingRoute = require('./routes/user/lending')
 // Member
 const memberDashboardRoute = require('./routes/member/dashboard')
 const memberBooksRoute = require('./routes/member/books')
+const memberAuthorsRoute = require('./routes/member/authors')
 
 
 // Database setup
@@ -81,6 +82,7 @@ app.get('/', checkIsStaff, (req, res) => {
 // Route for member
 app.use('/member', chooseLayout('member'), checkIsMember, memberDashboardRoute);
 app.use('/member/books', checkIsMember, memberBooksRoute)
+app.use('/member/authors', checkIsMember, memberAuthorsRoute)
 
 // Middleware to choose the layout based on the route / user
 function chooseLayout(route){
