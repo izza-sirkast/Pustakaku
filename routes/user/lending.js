@@ -14,8 +14,15 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.get('/new', (req, res) => {
-    res.render('user/lending/choose')
+router.get('/new', async (req, res) => {
+    try {
+        const members = await memberModel.find()
+        const books = await bookModel.find()
+        res.render('user/lending/new', {members, books})
+    } catch (error) {
+        console.log(error)
+        res.redirect('/user/lending')
+    }
 })
 
 router.get('/new/:id', async (req, res) => {
