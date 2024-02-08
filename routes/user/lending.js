@@ -15,9 +15,16 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/new', async (req, res) => {
+    // const searchParams = {}
+    // const bookQuery = bookModel.find()
+    // if(req.query.title != null && req.query.title != ''){
+    //     searchParams.title = req.query.title
+    //     bookQuery.regex('title', new RegExp(req.query.title, 'i'))
+    // }
+
     try {
         const members = await memberModel.find()
-        const books = await bookModel.find()
+        const books = await bookModel.find().populate('author')
         res.render('user/lending/new', {members, books})
     } catch (error) {
         console.log(error)

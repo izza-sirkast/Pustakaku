@@ -9,6 +9,7 @@ const MongoStore = require('connect-mongo')
 
 // Local libraries
 const {passportSetup, checkAuthenticated, checkIsStaff, checkIsMember} = require('./utils/authentication/passport-authentication')
+const bookModel = require('./models/book')
 
 const app = express();
 
@@ -39,6 +40,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(passport.authenticate('session'))
 app.use(flash())
+app.use(fetchBooks)
 
 // Initialize passport setup
 passportSetup(passport)
@@ -89,6 +91,17 @@ function chooseLayout(route){
     return (req, res, next) => {
         res.locals.layout = `layouts/${route}-layout`
         next()
+    }
+}
+
+// Middleware to fetch books data
+async function fetchBooks(req, res, next){
+    try {
+        const books = await bookModel.find()
+        res.locals.books = books
+        return next()
+    } catch (error) {
+        return next()
     }
 }
 

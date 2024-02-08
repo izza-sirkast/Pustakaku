@@ -83,6 +83,25 @@ router.post('/new', async (req, res) => {
     }
 })
 
+// Backend fetching data
+router.get('/fetch', async (req, res) => {
+    const searchParams = {}
+    const bookQuery = bookModel.find()
+
+    if(req.query.title != null && req.query.title != ''){
+        searchParams.title = req.query.title
+        bookQuery.regex('title', new RegExp(req.query.title, 'i'))
+    }
+
+    try{
+        const books = await bookQuery.populate('author').exec()
+        res.json({books})
+    }catch(err){
+        console.log(err)
+        res.status(500).json({error: 'Internal server error'})
+    }
+})
+
 // Routing to edit book form
 router.get('/:id/edit', async (req, res) => {
     try{

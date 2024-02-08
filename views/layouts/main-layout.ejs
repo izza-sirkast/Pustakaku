@@ -22,7 +22,7 @@
         }
     </style>
 </head>
-<body class="bg-sky-100 max-w-screen">
+<body class="bg-sky-50 max-w-screen">
     <%- include('../partials/staff-navbar.ejs') %>
 
     <div class="max-w-5xl px-10 py-7 mx-auto">
@@ -39,6 +39,13 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
+    <!-- ejs -->
+    <script src="/views/layouts/ejs.min.js"></script>
+
+    <!-- <script src="
+https://cdn.jsdelivr.net/npm/ejs@3.1.9/ejs.min.js
+"></script> -->
+
     <!-- custom script -->
     <script>
         function toggleMenu(e){
@@ -54,26 +61,33 @@
             }
         }
 
-        function resetForm(){
-            document.querySelector('.before-input').value = ''
-            document.querySelector('.after-input').value = ''
-            document.querySelector('.select-input').selectedIndex = 0
-        }
+
+        // New lending script
+        const searchBookInput = document.getElementById('search')
+
+        searchBookInput.addEventListener('keypress', function(event) {
+            if(event.keyCode === 13){
+                filterBooks()
+            }
+        })
 
         function chooseBook(e){
-            const {id, title, imgrender} = e.dataset
-            console.log(title)
+            const {id, title, imgrender, author, publishdate} = e.dataset
             const booksContainer = document.getElementById('books-container')
             booksContainer.innerHTML = `
                 <div class="flex items-center">
-                    <img src="${imgrender}" class="h-80 mr-5">
+                    <img src="${imgrender}" class="h-80 mr-3">
 
-                    <div class="">
-                        <p>id: ${id}</p>
-                        <p>id: ${title}</p>
-                        <p>id: ${id}</p>
+                    <div class="flex flex-col md:flex-row items-start md:items-center">
+                        <div class="mb-5 mr-4 *:mb-2 *:break-all">
+                            <p><span class="font-semibold">Id: </span>${id}</p>
+                            <p><span class="font-semibold">Title: </span>${title}</p>
+                            <p><span class="font-semibold">Author: </span>${author}</p>
+                            <p><span class="font-semibold">Publish date: </span>${publishdate}</p>
+                        </div>
+
+                        <button onclick="cancelChooseBook()" class="px-2 rounded-md border border-black bg-red-400 hover:bg-red-500 transition-all ease-in">Cancel</button>
                     </div>
-                    <button onclick="cancelChooseBook()">Cancel</button>
                 </div>
             `
         }
@@ -82,11 +96,33 @@
             const booksContainer = document.getElementById('books-container')
             booksContainer.innerHTML = `
                 <% books.forEach(book => { %>
-                    <button onclick="chooseBook(this)" data-imgRender="<%= book.coverImageRender %>" data-id="<%= book._id %>" data-title="<%= book.title %>" class="">
+                    <button onclick="chooseBook(this)" data-imgRender="<%= book.coverImageRender %>" data-id="<%= book._id %>" data-title="<%= book.title %>" data-author="<%= book.author.name %>" data-publishdate="<%= book.publishDate.toISOString().split('T')[0] %>" class="book-button">
                         <img src="<%= book.coverImageRender %>" class="h-52">
                     </button>
                 <% }) %>
             `
+        }
+
+        function filterBooks(){
+            cancelChooseBook()
+            const titleFilter = document.getElementById('search').value
+            const bookButtons = document.querySelectorAll('.book-button')
+                    
+            bookButtons.forEach(bookButton => {
+                const title = bookButton.dataset.title.toLowerCase()
+
+                if(!title.includes(titleFilter)){
+                    bookButton.classList.add("hidden")
+                }else{
+                    bookButton.classList.remove("hidden")
+                }
+            });
+
+        }
+
+        function resetFilter(){
+            document.querySelector('#search').value = ''
+            cancelChooseBook()
         }
 
     </script>

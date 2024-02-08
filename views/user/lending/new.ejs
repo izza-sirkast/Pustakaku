@@ -1,26 +1,24 @@
 <h1 class="text-3xl">Book Lending Form</h1>
 
-<form action="/user/lending/new" method="post" class="mt-5">
+<div class="mt-5">
     <div class="inline-flex items-center flex-wrap">
         <h2 class="text-xl mr-3">Choose book</h2>
-        <form action="/user/lending/new" method="get" class="">
-            <div class="inline-flex items-center bg-sky-200 rounded-md border border-black">        
-                <button type="submit" class="flex flex-col justify-center px-1">
-                    <ion-icon name="search-outline" class="text-lg hover:cursor-pointer hover:text-blue-900 transition-all ease-in"></ion-icon>
-                </button>
-                
-                <input type="text" name="title" id="search" value="" class="px-2 border-l border-r border-black disabled:bg-gray-200" ></input>
-                
-                <button class="flex flex-col justify-center" onclick="document.getElementById('search').value = ''">
-                    <ion-icon name="close-outline" class="text-2xl  hover:cursor-pointer hover:text-blue-900 transition-all ease-in"></ion-icon>
-                </button>
-            </div>
-        </form>
+        <div class="inline-flex items-center bg-sky-200 rounded-md border border-black">        
+            <button type="button" class="flex flex-col justify-center px-1" onclick="filterBooks()">
+                <ion-icon name="search-outline" class="text-lg hover:cursor-pointer hover:text-blue-900 transition-all ease-in"></ion-icon>
+            </button>
+            
+            <input type="text" name="title" id="search" class="px-2 border-l border-r border-black disabled:bg-gray-200" ></input>
+            
+            <button type="button" class="flex flex-col justify-center" onclick="resetFilter()">
+                <ion-icon name="close-outline" class="text-2xl  hover:cursor-pointer hover:text-blue-900 transition-all ease-in"></ion-icon>
+            </button>
+        </div>
     </div>
-        
+    
     <div class="flex flex-wrap items-center mt-4 *:mr-3 *:mb-3" id="books-container">
-        <% books.forEach(book => { %>
-            <button onclick="chooseBook(this)" data-imgRender="<%= book.coverImageRender %>" data-id="<%= book._id %>" data-title="<%= book.title %>" class="">
+    <% books.forEach(book => { %>
+            <button onclick="chooseBook(this)" data-imgRender="<%= book.coverImageRender %>" data-id="<%= book._id %>" data-title="<%= book.title %>" data-author="<%= book.author.name %>" data-publishdate="<%= book.publishDate.toISOString().split('T')[0] %>" class="book-button">
                 <img src="<%= book.coverImageRender %>" class="h-52">
             </button>
         <% }) %>
@@ -32,12 +30,12 @@
 
     <a href="/user/lending/new" class="btn" style="margin-left: 5px; margin-right: 3px;">Cancel</a>
     <button type="submit" class="btn btn-success">Search</button>
-</form>
 
-<% members.forEach(member => { %>
+    <% members.forEach(member => { %>
     <div class="btn" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
         <p><%= member.name %></p>
         <p><%= member._id %></p>
         <p><%= member.email %></p>
     </div>
-<% }) %>
+    <% }) %>
+</div>
