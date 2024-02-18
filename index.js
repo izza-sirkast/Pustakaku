@@ -10,6 +10,7 @@ const MongoStore = require('connect-mongo')
 // Local libraries
 const {passportSetup, checkAuthenticated, checkIsStaff, checkIsMember} = require('./utils/authentication/passport-authentication')
 const bookModel = require('./models/book')
+const memberModel = require('./models/member')
 
 const app = express();
 
@@ -98,7 +99,9 @@ function chooseLayout(route){
 async function fetchBooks(req, res, next){
     try {
         const books = await bookModel.find()
+        const members = await memberModel.find()
         res.locals.books = books
+        res.locals.members = members
         return next()
     } catch (error) {
         return next()

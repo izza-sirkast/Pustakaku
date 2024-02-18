@@ -2,7 +2,7 @@
 
 <div class="mt-5">
     <div class="inline-flex items-center flex-wrap">
-        <h2 class="text-xl mr-3">Choose book</h2>
+        <label class="text-xl mr-3" for="search">Choose book</label>
         <div class="inline-flex items-center bg-sky-200 rounded-md border border-black">        
             <button type="button" class="flex flex-col justify-center px-1" onclick="filterBooks()">
                 <ion-icon name="search-outline" class="text-lg hover:cursor-pointer hover:text-blue-900 transition-all ease-in"></ion-icon>
@@ -16,7 +16,7 @@
         </div>
     </div>
     
-    <div class="flex flex-wrap items-center mt-4 *:mr-3 *:mb-3" id="books-container">
+    <div class="flex flex-wrap items-center mt-4 *:mr-3 *:mb-3 mb-5" id="books-container">
     <% books.forEach(book => { %>
             <button onclick="chooseBook(this)" data-imgRender="<%= book.coverImageRender %>" data-id="<%= book._id %>" data-title="<%= book.title %>" data-author="<%= book.author.name %>" data-publishdate="<%= book.publishDate.toISOString().split('T')[0] %>" class="book-button">
                 <img src="<%= book.coverImageRender %>" class="h-52">
@@ -25,17 +25,41 @@
     </div>
 
 
-    <label for="searchMember">Search : </label>
-    <input type="text" name="searchMember" id="searchMember">
+    <div class="flex items-center mb-6">
+        <label for="search-lender" class="text-xl mr-3">Choose lender </label>
 
-    <a href="/user/lending/new" class="btn" style="margin-left: 5px; margin-right: 3px;">Cancel</a>
-    <button type="submit" class="btn btn-success">Search</button>
-
-    <% members.forEach(member => { %>
-    <div class="btn" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-        <p><%= member.name %></p>
-        <p><%= member._id %></p>
-        <p><%= member.email %></p>
+        <div class="inline-flex items-center bg-sky-200 rounded-md border border-black">        
+            <button type="button" class="flex flex-col justify-center px-1" onclick="searchLender()">
+                <ion-icon name="search-outline" class="text-lg hover:cursor-pointer hover:text-blue-900 transition-all ease-in"></ion-icon>
+            </button>
+            
+            <input type="text" id="search-lender" class="px-2 border-l border-r border-black disabled:bg-gray-200"></input>
+            
+            <button type="button" class="flex flex-col justify-center" onclick="cancelSearchLender()">
+                <ion-icon name="close-outline" class="text-2xl  hover:cursor-pointer hover:text-blue-900 transition-all ease-in"></ion-icon>
+            </button>
+        </div>
     </div>
-    <% }) %>
+
+    <div id="member-list-container">
+        <% members.forEach(member => { %>
+            <btn class="lender-button btn flex items-center hover:bg-sky-300 hover:cursor-pointer px-2 py-1 rounded-md max-w-xl mt-3" data-id="<%= member._id %>" data-name="<%= member.name %>" data-email="<%= member.email %>" onclick="chooseLender(this)">
+                <div class="min-w-36">
+                    <ion-icon name="person-outline" class="text-5xl"></ion-icon>
+                </div>
+                
+                <div class="w-48">
+                    <p class="text-left"><%= member.name %></p>
+                    <p class="text-left text-sm"><%= member.email %></p>
+                </div>
+                
+                <p class=""><%= member._id %></p>
+            </btn>
+        <% }) %>
+    </div>
 </div>
+<form action="/user/lending/new" method="post" class="flex justify-end mt-8 max-w-lg">
+    <input type="text" name="bookId" id="book-id" required hidden>
+    <input type="text" name="lenderId" id="lender-id" required hidden>
+    <button type="submit" class="bg-green-300 px-2 py-1 rounded-md border border-black hover:cursor-pointer hover:bg-green-400 transition-all ease-in mr-10">Submit</button>
+</form>

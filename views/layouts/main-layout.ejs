@@ -40,13 +40,8 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
     <!-- ejs -->
-    <script src="/views/layouts/ejs.min.js"></script>
+    <!-- <script src="/views/layouts/ejs.min.js"></script> -->
 
-    <!-- <script src="
-https://cdn.jsdelivr.net/npm/ejs@3.1.9/ejs.min.js
-"></script> -->
-
-    <!-- custom script -->
     <script>
         function toggleMenu(e){
             const menu = document.querySelector('#menu')
@@ -60,9 +55,11 @@ https://cdn.jsdelivr.net/npm/ejs@3.1.9/ejs.min.js
                 e.name = 'menu-outline'
             }
         }
+    </script>
 
-
-        // New lending script
+    <!-- Lending page -->
+    <script>
+        // Choose book functionality
         const searchBookInput = document.getElementById('search')
 
         searchBookInput.addEventListener('keypress', function(event) {
@@ -72,6 +69,7 @@ https://cdn.jsdelivr.net/npm/ejs@3.1.9/ejs.min.js
         })
 
         function chooseBook(e){
+            // Change choose book ui
             const {id, title, imgrender, author, publishdate} = e.dataset
             const booksContainer = document.getElementById('books-container')
             booksContainer.innerHTML = `
@@ -90,9 +88,14 @@ https://cdn.jsdelivr.net/npm/ejs@3.1.9/ejs.min.js
                     </div>
                 </div>
             `
+
+            // Add choosen book id to form input as value
+            const bookId = document.getElementById('book-id')
+            bookId.value = id
         }
 
         function cancelChooseBook(){
+            // Change choose book ui
             const booksContainer = document.getElementById('books-container')
             booksContainer.innerHTML = `
                 <% books.forEach(book => { %>
@@ -101,6 +104,10 @@ https://cdn.jsdelivr.net/npm/ejs@3.1.9/ejs.min.js
                     </button>
                 <% }) %>
             `
+
+            // Remove choosen book id in input value
+            const bookId = document.getElementById('book-id')
+            bookId.value = ''
         }
 
         function filterBooks(){
@@ -125,6 +132,91 @@ https://cdn.jsdelivr.net/npm/ejs@3.1.9/ejs.min.js
             cancelChooseBook()
         }
 
+        // Choose lender functionality
+        const searchLenderInput = document.getElementById('search-lender')
+
+        searchLenderInput.addEventListener('keypress', function(event) {
+            if(event.keyCode === 13){
+                searchLender()
+            }
+        })
+
+        function chooseLender(e){
+            // Update choose lender ui
+            const {id, name, email} = e.dataset
+            const membersContainer = document.getElementById('member-list-container')
+            membersContainer.innerHTML = `
+                <div class="flex items-center">
+                    <ion-icon name="person-outline" class="text-8xl border-2 border-black p-3 mb-3"></ion-icon>
+
+                    <div class="ml-5">
+                        <p class="text-lg border-b border-b-black mb-3">Name : ${name}</p>
+                        <p class="text-lg border-b border-b-black mb-3">Id : ${id}</p>
+                        <p class="text-lg border-b border-b-black mb-3">Email : ${email}</p>
+                        <p class="text-lg border-b border-b-black mb-3">Num books lend currently : 2</p>
+                    </div>
+
+                    <button onclick="cancelChooseLender()" class="ml-5 px-2 rounded-md border border-black bg-red-400 hover:bg-red-500 transition-all ease-in">Cancel</button>
+                </div>
+            `
+
+            // Add choosen lender id to input value
+            const lenderId = document.getElementById('lender-id')
+            lenderId.value = id
+        }
+
+        function cancelChooseLender(){
+            // Update choose lender ui
+            membersContainer = document.getElementById('member-list-container')
+            membersContainer.innerHTML = `
+                <% members.forEach(member => { %>
+                    <btn class="lender-button btn flex items-center hover:bg-sky-300 hover:cursor-pointer px-2 py-1 rounded-md max-w-xl mt-3" data-id="<%= member._id %>" data-name="<%= member.name %>" data-email="<%= member.email %>" onclick="chooseLender(this)">
+                        <div class="min-w-36">
+                            <ion-icon name="person-outline" class="text-5xl"></ion-icon>
+                        </div>
+                        
+                        <div class="w-48">
+                            <p class="text-left"><%= member.name %></p>
+                            <p class="text-left text-sm"><%= member.email %></p>
+                        </div>
+                        
+                        <p class=""><%= member._id %></p>
+                    </btn>
+                <% }) %>
+            `
+
+            // Remove choosen lender id to input value
+            const lenderId = document.getElementById('lender-id')
+            lenderId.value = ''
+        }
+
+        function searchLender(){
+            cancelChooseLender()
+            const searchKey = document.getElementById('search-lender').value
+            const lenderButtons = document.querySelectorAll('.lender-button')
+                    
+            lenderButtons.forEach(lenderButton => {
+                const name = lenderButton.dataset.name.toLowerCase()
+
+                const id = lenderButton.dataset.id.toLowerCase()
+
+                const email = lenderButton.dataset.email.toLowerCase()
+
+                if(!name.includes(searchKey) && !id.includes(searchKey) && !email.includes(searchKey)){
+                    lenderButton.classList.add("hidden")
+                }else{
+                    lenderButton.classList.remove("hidden")
+                }
+            });
+
+        }
+
+        function cancelSearchLender(){
+            document.querySelector('#search-lender').value = ''
+            cancelChooseLender()
+        }
+
     </script>
+
 </body>
 </html>

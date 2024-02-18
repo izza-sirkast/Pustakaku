@@ -3,11 +3,12 @@ const router = express.Router()
 
 const bookModel = require('../../models/book')
 const memberModel = require('../../models/member')
+const lendModel = require('../../models/lend')
 
 router.get('/', async (req, res) => {
     try {
-        const availableBooks = await bookModel.find({available : true})
-        res.render('user/lending/index', {books : availableBooks})
+        const lends = await lendModel.find().populate('book').populate('lender')
+        res.render('user/lending/index', {lends})
     } catch (error) {
         console.log(error)
         res.redirect('/user')
@@ -15,13 +16,6 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/new', async (req, res) => {
-    // const searchParams = {}
-    // const bookQuery = bookModel.find()
-    // if(req.query.title != null && req.query.title != ''){
-    //     searchParams.title = req.query.title
-    //     bookQuery.regex('title', new RegExp(req.query.title, 'i'))
-    // }
-
     try {
         const members = await memberModel.find()
         const books = await bookModel.find().populate('author')
@@ -29,6 +23,23 @@ router.get('/new', async (req, res) => {
     } catch (error) {
         console.log(error)
         res.redirect('/user/lending')
+    }
+})
+
+router.post('/new', async(req, res) => {
+    const {bookId, lenderId} = req.body
+    try {
+        const newLend = new lendModel({
+            lender: lenderId,
+            book: bookId,
+            date: new Date()
+        })
+        await newLend.save()
+        req.flash('lendSuccess', 'New lend has been created successfully')
+        res.redirect('/user')
+    } catch (error) {
+        console.log(error)
+        res.redirect('/user/lending/new')
     }
 })
 
