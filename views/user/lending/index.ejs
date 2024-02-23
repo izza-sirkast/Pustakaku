@@ -1,7 +1,15 @@
+<% if (messages.lendSuccess) { %>
+    <p class="text-green-500"><%= messages.lendSuccess %></p>
+<% } %>
+<% if (messages.returnSuccess) { %>
+    <p class="text-green-500"><%= messages.returnSuccess %></p>
+<% }%>
+<% if (messages.returnFailed) { %>
+    <p class="text-red-500"><%= messages.returnFailed %></p>
+<% }%>
+
 <div class="flex">
     <h1 class="text-3xl mb-8">Lending List</h1>
-
-    
 </div>
 
 <% lends.forEach(lend => { %>
@@ -10,7 +18,12 @@
             <div class="flex flex-col items-center">
                 <img src="<%= lend.book.coverImageRender %>" alt="<%= lend.book.title %> book cover image" class="h-40  w-32 mb-3">
 
-                <button class="bg-green-300 px-2 py-1 w-full rounded-md border border-black hover:cursor-pointer hover:bg-green-400 transition-all ease-in">Return</button>
+                <form action="/user/lending" method="post">
+                    <input type="text" name="lendId" value="<%= lend._id %>" hidden>
+                    <input type="text" name="bookId" value="<%= lend.book._id %>" hidden>
+                    <input type="text" name="lenderId" value="<%= lend.lender._id %>" hidden>
+                    <button type="submit" class="bg-green-300 px-2 py-1 w-full rounded-md border border-black hover:cursor-pointer hover:bg-green-400 transition-all ease-in" onclick="return confirm('Are you sure want to return this book')">Return</button>
+                </form>
             </div>
 
             <div class="text-lg w-full ml-4">
@@ -22,9 +35,9 @@
 
                 <p class="border-b border-black mb-2">Lend date : <%= lend.date.toDateString() %></p>
                 
-                <p class="border-b border-black mb-2">Remaining days of lend time : 38</p>
+                <p class="border-b border-black mb-2">Remaining days of lend time : <%= lend.remainingLendingTime %></p>
 
-                <p class="border-b border-black mb-2">Num of books lended : 2 from 5 total books</p>
+                <p class="border-b border-black mb-2">Num of books lended : <%= lend.book.lenderNum %> / <%= lend.book.quantity %></p>
             </div>
         </div>
     </div>

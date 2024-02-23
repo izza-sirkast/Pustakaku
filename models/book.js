@@ -59,6 +59,10 @@ bookSchema.virtual('available').get(function() {
     }
 })
 
+bookSchema.virtual('lenderNum').get(function() {
+    return this.lendBy.length
+})
+
 const bookModel = mongoose.model('Book', bookSchema);
 
 module.exports = bookModel

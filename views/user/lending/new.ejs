@@ -58,8 +58,9 @@
         <% }) %>
     </div>
 </div>
-<form action="/user/lending/new" method="post" class="flex justify-end mt-8 max-w-lg">
-    <input type="text" name="bookId" id="book-id" required hidden>
-    <input type="text" name="lenderId" id="lender-id" required hidden>
+
+<form action="/user/lending/new" method="post" class="flex justify-end mt-8 max-w-lg" onsubmit="return validateLendingForm()">
+    <input type="text" name="bookId" id="book-id" hidden>
+    <input type="text" name="lenderId" id="lender-id" hidden>
     <button type="submit" class="bg-green-300 px-2 py-1 rounded-md border border-black hover:cursor-pointer hover:bg-green-400 transition-all ease-in mr-10">Submit</button>
 </form>

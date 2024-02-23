@@ -17,6 +17,13 @@ const lendSchema = mongoose.Schema({
     }
 })
 
+lendSchema.virtual('remainingLendingTime').get(function() {
+    const maxTime = 40 * 24 * 60 * 60 * 1000
+    const remainingTime = maxTime - (Date.now() - this.date.getTime())
+    const remainingTimeDay = Math.floor(remainingTime / (24 * 60 * 60 * 1000))
+    return remainingTimeDay
+})
+
 const lendModel = mongoose.model('Lend', lendSchema);
 
 module.exports = lendModel;

@@ -7,11 +7,32 @@ const lendModel = require('../../models/lend')
 
 router.get('/', async (req, res) => {
     try {
-        const lends = await lendModel.find().populate('book').populate('lender')
+        const lends = await lendModel.find().populate('book').populate('lender').sort({date: -1})
         res.render('user/lending/index', {lends})
     } catch (error) {
         console.log(error)
         res.redirect('/user')
+    }
+})
+
+router.post('/', async (req, res) => {
+    const {lendId, bookId, lenderId} = req.body
+    try {
+        // remove lender from book
+        await bookModel.updateOne(
+            { _id : bookId },
+            { $pull : { lendBy : lenderId }}
+        )
+
+        // remove lend document
+        await lendModel.deleteOne({ _id : lendId })
+        
+        req.flash('returnSuccess', 'Book has been returned successfully')
+        res.redirect('/user/lending')
+    } catch (error) {
+        console.log(error)
+        req.flash('returnFailed', 'Error: cannot return book')
+        res.redirect('/user/lending')
     }
 })
 
@@ -29,14 +50,22 @@ router.get('/new', async (req, res) => {
 router.post('/new', async(req, res) => {
     const {bookId, lenderId} = req.body
     try {
+        // Add new lender to the book lendBy property
+        await bookModel.updateOne(
+            { _id : bookId },
+            { $push : { lendBy: lenderId }}
+        )
+
+        // Add new lend data to the database
         const newLend = new lendModel({
             lender: lenderId,
             book: bookId,
             date: new Date()
         })
         await newLend.save()
+
         req.flash('lendSuccess', 'New lend has been created successfully')
-        res.redirect('/user')
+        res.redirect('/user/lending')
     } catch (error) {
         console.log(error)
         res.redirect('/user/lending/new')

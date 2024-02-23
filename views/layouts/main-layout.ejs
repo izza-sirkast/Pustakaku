@@ -216,6 +216,18 @@
             cancelChooseLender()
         }
 
+        // Check if user has choose book and lender
+        function validateLendingForm(){
+            const bookInput = document.getElementById('book-id')
+            const lenderInput = document.getElementById('lender-id')
+
+            if(bookInput.value === '' || lenderInput.value === ''){
+                alert('Please choose book and lender')
+                return false
+            }else{
+                return true
+            }
+        }
     </script>
 
 </body>
