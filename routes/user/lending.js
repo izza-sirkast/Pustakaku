@@ -36,16 +36,26 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.get('/new', async (req, res) => {
+router.get('/new', (req, res) => {
+    res.redirect('/user/lending/new/pick')
+})
+
+router.get('/new/:id', async (req, res) => {
     try {
         const members = await memberModel.find()
         const books = await bookModel.find().populate('author')
-        res.render('user/lending/new', {members, books})
+        if(req.params.id == 'pick'){
+            res.render('user/lending/new', {members, books, book : false})
+        }else{
+            const book = await bookModel.findById(req.params.id).populate('author')
+            res.render('user/lending/new', {members, books, book})
+        }
     } catch (error) {
         console.log(error)
         res.redirect('/user/lending')
     }
 })
+
 
 router.post('/new', async(req, res) => {
     const {bookId, lenderId} = req.body
@@ -72,16 +82,6 @@ router.post('/new', async(req, res) => {
     }
 })
 
-router.get('/new/:id', async (req, res) => {
-    try {
-        const book = await bookModel.findById(req.params.id)
-        const members = await memberModel.find()
-        res.render('user/lending/new', {book, members})
-    } catch (error) {
-        res.redirect('/user/lending')
-    }
-    
 
-})
 
 module.exports = router

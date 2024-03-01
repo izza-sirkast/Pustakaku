@@ -17,11 +17,28 @@
     </div>
     
     <div class="flex flex-wrap items-center mt-4 *:mr-3 *:mb-3 mb-5" id="books-container">
-    <% books.forEach(book => { %>
+    <% if (book) { %>
+        <div class="flex items-center">
+            <img src="<%= book.coverImageRender %>" class="h-80 mr-3">
+
+            <div class="flex flex-col md:flex-row items-start md:items-center">
+                <div class="mb-5 mr-4 *:mb-2 *:break-all">
+                    <p><span class="font-semibold">Id: </span><%= book._id %></p>
+                    <p><span class="font-semibold">Title: </span><%= book.title %></p>
+                    <p><span class="font-semibold">Author: </span><%= book.author.name  %></p>
+                    <p><span class="font-semibold">Publish date: </span><%= book.publishDate.toISOString().split('T')[0] %></p>
+                </div>
+
+                <button onclick="cancelChooseBook()" class="px-2 rounded-md border border-black bg-red-400 hover:bg-red-500 transition-all ease-in">Cancel</button>
+            </div>
+        </div>
+    <% } else { %>
+        <% books.forEach(book => { %>
             <button onclick="chooseBook(this)" data-imgRender="<%= book.coverImageRender %>" data-id="<%= book._id %>" data-title="<%= book.title %>" data-author="<%= book.author.name %>" data-publishdate="<%= book.publishDate.toISOString().split('T')[0] %>" class="book-button">
                 <img src="<%= book.coverImageRender %>" class="h-52">
             </button>
         <% }) %>
+    <% } %>
     </div>
 
 
@@ -60,7 +77,12 @@
 </div>
 
 <form action="/user/lending/new" method="post" class="flex justify-end mt-8 max-w-lg" onsubmit="return validateLendingForm()">
-    <input type="text" name="bookId" id="book-id" hidden>
+    <% if (book) { %>
+        <input type="text" name="bookId" id="book-id" value="<%= book._id %>" hidden>
+    <% } else { %>
+        <input type="text" name="bookId" id="book-id" hidden>
+    <% } %>
+    
     <input type="text" name="lenderId" id="lender-id" hidden>
     <button type="submit" class="bg-green-300 px-2 py-1 rounded-md border border-black hover:cursor-pointer hover:bg-green-400 transition-all ease-in mr-10">Submit</button>
 </form>
