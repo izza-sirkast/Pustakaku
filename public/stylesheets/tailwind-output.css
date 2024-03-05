@@ -706,6 +706,10 @@ video {
   margin-top: 2rem;
 }
 
+.mr-20 {
+  margin-right: 5rem;
+}
+
 .block {
   display: block;
 }
@@ -804,6 +808,18 @@ video {
 
 .max-w-xl {
   max-width: 36rem;
+}
+
+.max-w-40 {
+  max-width: 10rem;
+}
+
+.max-w-60 {
+  max-width: 15rem;
+}
+
+.max-w-3xl {
+  max-width: 48rem;
 }
 
 .cursor-pointer {

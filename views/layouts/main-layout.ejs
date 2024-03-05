@@ -59,6 +59,40 @@
 
     <!-- Lending page -->
     <script>
+        // ---------- SEE LENDING LIST PAGE ---------------
+        // Search lending functionality
+        const searchLendingInput = document.getElementById('search-lending-input')
+        searchLendingInput.addEventListener('keypress', function(event) {
+            if(event.keyCode === 13){
+                searchLending()
+            }
+        })
+
+        function searchLending(){
+            const searchLendingInputValue = searchLendingInput.value.toLowerCase()
+            const lendingDataContainers = document.querySelectorAll('.lending-data-container')
+
+            lendingDataContainers.forEach(lending => {
+                const lendid = lending.dataset.lendid.toLowerCase()
+                const bookTitle = lending.dataset.book.toLowerCase()
+                const lenderName = lending.dataset.lender.toLowerCase()
+
+                if(lendid.includes(searchLendingInputValue) || bookTitle.includes(searchLendingInputValue) || lenderName.includes(searchLendingInputValue)){
+                    lending.classList.remove('hidden')
+                }else{
+                    lending.classList.add('hidden')
+                }
+            })
+        }
+
+        function resetSearchLending(){
+            searchLendingInput.value = ''
+            searchLending()
+        }
+
+
+
+        // ---------- ADD NEW LENDING PAGE ------------
         // Choose book functionality
         const searchBookInput = document.getElementById('search')
 

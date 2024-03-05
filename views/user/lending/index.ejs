@@ -8,12 +8,25 @@
     <p class="text-red-500"><%= messages.returnFailed %></p>
 <% }%>
 
-<div class="flex">
-    <h1 class="text-3xl mb-8">Lending List</h1>
+<div class="flex items-center mb-8 justify-between max-w-xl">
+    <h1 class="text-3xl">Lending List</h1>
+
+    <div class="inline-flex items-center bg-sky-200 rounded-md border border-black">        
+        <button type="button" class="flex flex-col justify-center px-1" onclick="searchLending()">
+            <ion-icon name="search-outline" class="text-lg hover:cursor-pointer hover:text-blue-900 transition-all ease-in"></ion-icon>
+        </button>
+        
+        <input type="text" name="title" id="search-lending-input" class="px-2 border-l border-r border-black disabled:bg-gray-200"></input>
+        
+        <button type="button" class="flex flex-col justify-center" onclick="resetSearchLending()">
+            <ion-icon name="close-outline" class="text-2xl  hover:cursor-pointer hover:text-blue-900 transition-all ease-in"></ion-icon>
+        </button>
+    </div>
 </div>
 
+<div id="lending-list-container">
 <% lends.forEach(lend => { %>
-    <div class="mb-5">
+    <div class="mb-5 lending-data-container" data-lendid="<%= lend._id %>" data-book="<%= lend.book.title %>" data-lender="<%= lend.lender.name %>">
         <div class="flex bg-sky-200 p-4 rounded-md max-w-xl">
             <div class="flex flex-col items-center">
                 <img src="<%= lend.book.coverImageRender %>" alt="<%= lend.book.title %> book cover image" class="h-40  w-32 mb-3">
@@ -43,3 +56,4 @@
     </div>
  
 <% }) %>
+</div>
